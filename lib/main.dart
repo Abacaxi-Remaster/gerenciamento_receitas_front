@@ -43,7 +43,7 @@ class MyAppState extends ChangeNotifier {
   var logado = false;
 
 //login:
-  LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 'id');
+  LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 0);
   var tipoLogado = 0;
 
   void logar(LoggedUser user) {

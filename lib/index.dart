@@ -60,7 +60,7 @@ class LoggedUser {
   String email;
   String senha;
   String nome;
-  String id;
+  int id;
 
   LoggedUser(this.tipo, this.email, this.senha, this.nome, this.id);
 
@@ -95,7 +95,7 @@ class LoggedUser {
 }
 
 Future<LoggedUser> login(tipo, email, senha) async {
-  LoggedUser user = LoggedUser(tipo, email, senha, '', '');
+  LoggedUser user = LoggedUser(tipo, email, senha, '', 0);
   String jsonUser = jsonEncode(user.toJson());
   http.Response response = await http.post(
     Uri.parse("http://localhost:8000/login"),
@@ -114,6 +114,6 @@ Future<LoggedUser> login(tipo, email, senha) async {
     } else {
       print("outro");
     }
-    return LoggedUser(204, 'email', 'senha', 'nome', 'id');
+    return LoggedUser(204, 'email', 'senha', 'nome', 0);
   }
 }
