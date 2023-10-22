@@ -3,12 +3,6 @@ import 'package:receita_front/all.dart';
 import 'package:provider/provider.dart';
 import '/main.dart';
 
-const List<Widget> Tipos = <Widget>[
-  Text('Aluno'),
-  Text('Mentor'),
-  Text('Empresa'),
-];
-
 class CadastroPage extends StatefulWidget {
   @override
   State<CadastroPage> createState() => _CadastroPageState();

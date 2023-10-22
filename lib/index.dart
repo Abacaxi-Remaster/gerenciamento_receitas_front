@@ -21,44 +21,21 @@ class RegisterUser {
   String nome;
   String email;
   String senha;
-  String ultimo;
 
-  RegisterUser(this.tipo, this.nome, this.email, this.senha, this.ultimo);
+  RegisterUser(this.tipo, this.nome, this.email, this.senha);
 
   Map<String, dynamic> toJson() {
-    switch (tipo) {
-      case 0:
-        return {
-          'usuario': "alunos",
-          'nome': nome,
-          'email': email,
-          'senha': senha,
-          'curso': ultimo
-        };
-      case 1:
-        return {
-          'usuario': "mentores",
-          'nome': nome,
-          'email': email,
-          'senha': senha,
-          'CPF': ultimo
-        };
-      case 2:
-        return {
-          'usuario': "empresas",
-          'nome': nome,
-          'email': email,
-          'senha': senha,
-          'CNPJ': ultimo
-        };
-      default:
-        return {'tipo': '', 'nome': '', 'email': '', 'senha': '', 'ultimo': ''};
-    }
+    return {
+      'usuario': "user",
+      'nome': nome,
+      'email': email,
+      'senha': senha,
+    };
   }
 }
 
 Future<int> cadastro(tipo, nome, email, senha, ultimo) async {
-  RegisterUser newUser = RegisterUser(tipo, nome, email, senha, ultimo);
+  RegisterUser newUser = RegisterUser(tipo, nome, email, senha);
 
   String jsonUser = jsonEncode(newUser.toJson());
 
@@ -89,21 +66,9 @@ class LoggedUser {
 
   Map<String, dynamic> toJson() {
     switch (tipo) {
-      case 0:
-        return {
-          'usuario': "alunos",
-          'email': email,
-          'senha': senha,
-        };
       case 1:
         return {
-          'usuario': "mentores",
-          'email': email,
-          'senha': senha,
-        };
-      case 2:
-        return {
-          'usuario': "empresas",
+          'usuario': "user",
           'email': email,
           'senha': senha,
         };
