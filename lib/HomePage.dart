@@ -22,11 +22,7 @@ class MyHomePageState extends State<MyHomePage> {
   ];
 
   Widget updatePage(selectedIndex) {
-    final Options = [
-      //CadastroPage(),
-      SearchPreview(),
-      CommentPreview()
-    ];
+    final Options = [SearchPreview(), CommentPreview()];
     return Options[selectedIndex];
   }
 
@@ -58,23 +54,20 @@ class MyHomePageState extends State<MyHomePage> {
     var appState = context.watch<MyAppState>();
 
     return LayoutBuilder(builder: (context, constraints) {
-      /*if (appState.logado) {
+      if (appState.logado) {
         menu = navigationMenu(constraints);
       } else {
         menu = EmptyMenu();
-      }*/
-      menu = navigationMenu(constraints);
+      }
       return Scaffold(
-        /*floatingActionButton: ElevatedButton(
+        floatingActionButton: ElevatedButton(
           onPressed: () {
-            appState.erro("placeholder de ação -> deslogar");
-            //appState.deslogar();
+            appState.deslogar();
             //appState.TESTE_toggle_tipoLogado();
             //appState.TESTE_adm();
           },
           child: const Text('Deslogar'),
         ),
-        */
         body: Row(
           children: [
             SafeArea(

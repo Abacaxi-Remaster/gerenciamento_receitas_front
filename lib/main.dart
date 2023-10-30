@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Color.fromARGB(255, 3, 169, 244),
+            seedColor: Color.fromRGBO(254, 215, 51, 100),
           ),
         ),
         home: Builder(
@@ -38,12 +38,12 @@ class MyAppState extends ChangeNotifier {
 
 //inicio:
   var selectedIndex = 0;
-  //Widget page = LoginPage();
-  Widget page = Placeholder();
+  Widget page = LoginPage();
   var logado = false;
 
 //login:
-  /*LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 'id');
+  LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 0);
+  var tipoLogado = 0;
 
   void logar(LoggedUser user) {
     if (user.tipo == 204) {
@@ -71,7 +71,6 @@ class MyAppState extends ChangeNotifier {
     //deletar dados temporarios do usuário
     //});
   }
-  */
 
 //mensagem de erro
   void erro(String mensagem) {

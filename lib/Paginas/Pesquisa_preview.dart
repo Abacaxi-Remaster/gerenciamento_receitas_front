@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-const List<Widget> Tipos = <Widget>[
-  Text('Aluno'),
-  Text('Mentor'),
-  Text('Empresa'),
-];
-
 class SearchPreview extends StatefulWidget {
   @override
   State<SearchPreview> createState() => _SearchPreviewState();
