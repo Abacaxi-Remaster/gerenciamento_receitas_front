@@ -123,4 +123,6 @@ class MyAppState extends ChangeNotifier {
     logado = true;
     notifyListeners();
   }
+
+  placeholder() {}
 }

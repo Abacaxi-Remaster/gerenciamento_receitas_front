@@ -1,72 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:receita_front/all.dart';
 import '/main.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class CommentPreview extends StatefulWidget {
+class LikePreview extends StatefulWidget {
   @override
-  State<CommentPreview> createState() => _CommentPreviewState();
+  State<LikePreview> createState() => _LikePreviewState();
 }
 
-class _CommentPreviewState extends State<CommentPreview> {
+class _LikePreviewState extends State<LikePreview> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    void ToggleIcon() {
-      if (appState.liked) {
-        appState.like = Icon(Icons.favorite_outline);
-        appState.numerolike--;
-        appState.liked = false;
-      } else {
-        appState.like = Icon(Icons.favorite);
-        appState.numerolike++;
-        appState.liked = true;
-      }
-    }
+    Curtida temp = Curtida('Teste 1', '1');
+    Curtida temp2 = Curtida('Teste 2', '2');
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        title: Text('Nome pagina'),
-        titleTextStyle: Theme.of(context).textTheme.headlineMedium,
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 25,
+    var curtidas = [temp, temp2];
+
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 250),
+        child: Container(
+          padding: EdgeInsets.all(12.0),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.white,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /*Text('Descrição: ${vaga.descricao}',
-                    style: TextStyle(fontSize: 20)),
-                Text('Requisitos: ${vaga.requisitos}',
-                    style: TextStyle(fontSize: 15)),
-                Text('Salário: ${vaga.salario}',
-                    style: TextStyle(fontSize: 15)),
-              */
-              ],
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Inscritos:', style: TextStyle(fontSize: 30)),
-          ),
-          /*for (var inscritos in appState.ins) ...[
-            ListTile(
-              style: Theme.of(context).listTileTheme.style,
-              title: Text(inscritos),
-              subtitle: Text(vaga.descricao),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {},
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child:
+                    Text('Lista de curtidas:', style: TextStyle(fontSize: 25)),
               ),
-            ),
-          ]*/
-          //ListaInscritos(),
-        ],
+              for (var curtida in curtidas!)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: ListTile(
+                    leading: Icon(Icons.favorite),
+                    title: Text('${curtida.Nome}'),
+                    trailing: IconButton(
+                        onPressed: () {
+                          setState(() {/*placeholder*/});
+                        },
+                        icon: Icon(Icons.arrow_right)),
+                  ),
+                )
+            ],
+          ),
+        ),
       ),
     );
   }

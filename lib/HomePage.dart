@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:receita_front/Paginas/Curtidas.dart';
 import 'all.dart';
 import 'main.dart';
 
@@ -30,7 +31,12 @@ class MyHomePageState extends State<MyHomePage> {
   ];
 
   Widget updatePage(selectedIndex) {
-    final Options = [SearchPreview(), CommentPreview(), AttCadastroPage()];
+    final Options = [
+      SearchPreview(),
+      CommentPreview(),
+      AttCadastroPage(),
+      LikePreview()
+    ];
     return Options[selectedIndex];
   }
 

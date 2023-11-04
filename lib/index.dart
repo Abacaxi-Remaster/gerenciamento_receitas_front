@@ -138,3 +138,24 @@ Future<LoggedUser> login(tipo, email, senha) async {
     return LoggedUser(204, 'email', 'senha', 'nome', 0);
   }
 }
+
+class Curtida {
+  String Nome;
+  String id;
+
+  Curtida(this.Nome, this.id);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Nome': Nome,
+      'id': id,
+    };
+  }
+
+  static Curtida fromJson(Map<String, dynamic> json) {
+    return Curtida(
+      json['Nome'],
+      json['id'],
+    );
+  }
+}
