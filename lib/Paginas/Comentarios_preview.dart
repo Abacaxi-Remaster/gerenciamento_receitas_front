@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/main.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CommentPreview extends StatefulWidget {
   @override
@@ -66,6 +67,22 @@ class _CommentPreviewState extends State<CommentPreview> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  RatingBar(
+                    initialRating: 3,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    itemCount: 5,
+                    itemSize: 25,
+                    ratingWidget: RatingWidget(
+                      full: Icon(Icons.favorite),
+                      half: Icon(Icons.star_half_outlined),
+                      empty: Icon(Icons.favorite_border),
+                    ),
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    },
+                  ),
                   Row(
                     children: [
                       IconButton(
