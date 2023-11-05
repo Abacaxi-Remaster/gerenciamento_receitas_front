@@ -19,10 +19,14 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.favorite),
       label: Text('Teste: criar Comentários/Likes'),
     ),
+    const NavigationRailDestination(
+      icon: Icon(Icons.favorite),
+      label: Text('Criar Receita'),
+    ),
   ];
 
   Widget updatePage(selectedIndex) {
-    final Options = [SearchPreview(), CommentPreview()];
+    final Options = [SearchPreview(), CommentPreview(), ];
     return Options[selectedIndex];
   }
 

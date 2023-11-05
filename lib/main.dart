@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
-
+import 'index.dart';
+import 'all.dart';
 void main() {
   runApp(MyApp());
 }
@@ -39,7 +40,7 @@ class MyAppState extends ChangeNotifier {
 //inicio:
   var selectedIndex = 0;
   Widget page = LoginPage();
-  var logado = false;
+  var logado = true;
 
 //login:
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 0);
@@ -70,6 +71,33 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
     //deletar dados temporarios do usuário
     //});
+  }
+
+// Parte  CRUD de receitas
+  Receita receitaAtual = Receita(
+        tituloReceitas: 'tituloReceitas',
+        descricao: 'descricao',
+        id: '-1',
+        requisitos: 'requisitos',
+        preparo: '');
+
+  List<Receita> _receitas = [];
+  List<Receita> get receitas => _receitas;
+
+  void adicionarReceita(Receita receita) {
+    _receitas.add(receita);
+    notifyListeners();
+    print(receita);
+  }
+
+  void removerReceita(Receita receita) {
+    receitas.remove(receita);
+    notifyListeners();
+  }
+
+  var receita = <String>[];
+  void addReceitas(String receitasUser) {
+    receita.add(receitasUser);
   }
 
 //mensagem de erro
