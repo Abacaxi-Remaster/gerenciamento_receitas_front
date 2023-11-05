@@ -141,6 +141,23 @@ Future<List<Receita>> listaReceitas() async {
   return receitas;
 }
 
+void deletaReceita(idReceita) async {
+  Map<String, dynamic> receita = {"id_vaga": idReceita};
+  String json = jsonEncode(receita);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/vagas/deleta"),
+    headers: {'Content-Type': 'application/json'},
+    body: json,
+  );
+  if (response.statusCode == 200) {
+    print('Vaga Deletada com sucesso!');
+  } else {
+    print(response.statusCode);
+    print(response.body);
+  }
+}
+
 class LoggedUser {
   int tipo;
   String email;

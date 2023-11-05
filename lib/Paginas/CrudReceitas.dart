@@ -4,6 +4,7 @@ import 'package:receita_front/HomePage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:receita_front/index.dart';
+import 'DetalheReceitas.dart';
 import 'dart:math';
 import '/main.dart';
 
@@ -24,7 +25,7 @@ class CrudReceitasCrudState extends State<CrudReceitas> {
   String requisitos = '';
   String preparo = '';
 
-  TextInputFormatter _inputFormatter1 = FilteringTextInputFormatter.digitsOnly;
+  //TextInputFormatter _inputFormatter1 = FilteringTextInputFormatter.digitsOnly;         receber so numeros
 
   void submitForm() {
     tituloController.clear();
@@ -69,7 +70,7 @@ class CrudReceitasCrudState extends State<CrudReceitas> {
         ),
         TextFormField(
           controller: preparoController,
-          inputFormatters: [_inputFormatter1],
+          //inputFormatters: [_inputFormatter1],                      usado para receber so numeros
           decoration: InputDecoration(labelText: 'Modo de Preparo'),
           onChanged: (value) {
             setState(() {
@@ -134,7 +135,7 @@ class _ReceitasState extends State<Receitas> {
 
     return Consumer<MyAppState>(builder: (context, appState, _) {
       return FutureBuilder<List<Receita>>(
-        future: listaReceitas(appState.logged.id),
+        future: listaReceitas(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
@@ -150,7 +151,7 @@ class _ReceitasState extends State<Receitas> {
                     leading: IconButton(
                       icon: Icon(Icons.menu),
                       onPressed: () {
-                        appState.receita = receita;
+                        appState.receitaAtual = receita; // Agora atribui uma instância de Receita
                         Navigator.push(
                           context,
                           MaterialPageRoute(

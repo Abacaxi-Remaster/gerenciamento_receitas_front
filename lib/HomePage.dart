@@ -26,7 +26,7 @@ class MyHomePageState extends State<MyHomePage> {
   ];
 
   Widget updatePage(selectedIndex) {
-    final Options = [SearchPreview(), CommentPreview(), ];
+    final Options = [SearchPreview(), CommentPreview(), CrudReceitas()];
     return Options[selectedIndex];
   }
 
