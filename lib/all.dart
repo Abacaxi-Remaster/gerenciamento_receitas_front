@@ -10,3 +10,4 @@ export 'package:receita_front/Paginas/Pesquisa_preview.dart';
 export 'package:receita_front/Paginas/Login.dart';
 export 'package:receita_front/Paginas/Cadastro.dart';
 export 'index.dart';
+export 'package:receita_front/Paginas/CrudReceitas.dart';

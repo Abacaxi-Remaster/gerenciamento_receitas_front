@@ -28,6 +28,10 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.star),
       label: Text('Teste: Página Curtidas'),
     ),
+    const NavigationRailDestination(
+      icon: Icon(Icons.favorite),
+      label: Text('Criar Receita'),
+    ),
   ];
 
   Widget updatePage(selectedIndex) {
@@ -35,7 +39,8 @@ class MyHomePageState extends State<MyHomePage> {
       SearchPreview(),
       CommentPreview(),
       AttCadastroPage(),
-      LikePreview()
+      LikePreview(), 
+      CrudReceitas()
     ];
     return Options[selectedIndex];
   }
