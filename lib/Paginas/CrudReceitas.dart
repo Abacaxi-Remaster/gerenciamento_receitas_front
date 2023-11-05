@@ -202,7 +202,7 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.update),
             onPressed: () {
               showDialog(
                 context: context,

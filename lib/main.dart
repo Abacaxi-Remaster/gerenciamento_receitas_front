@@ -42,7 +42,7 @@ class MyAppState extends ChangeNotifier {
 //inicio:
   var selectedIndex = 0;
   Widget page = LoginPage();
-  var logado = true;
+  var logado = false;
 
 //login:
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 0);
