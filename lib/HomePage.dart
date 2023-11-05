@@ -21,7 +21,7 @@ class MyHomePageState extends State<MyHomePage> {
       label: Text('Teste: criar Comentários/Likes'),
     ),
     const NavigationRailDestination(
-      icon: Icon(Icons.note_add),
+      icon: Icon(Icons.key),
       label: Text('Teste: Atualização Cadastral'),
     ),
     const NavigationRailDestination(
@@ -29,8 +29,8 @@ class MyHomePageState extends State<MyHomePage> {
       label: Text('Teste: Página Curtidas'),
     ),
     const NavigationRailDestination(
-      icon: Icon(Icons.favorite),
-      label: Text('Criar Receita'),
+      icon: Icon(Icons.note_add),
+      label: Text('Teste: Criar Receita'),
     ),
   ];
 
@@ -39,7 +39,7 @@ class MyHomePageState extends State<MyHomePage> {
       SearchPreview(),
       CommentPreview(),
       AttCadastroPage(),
-      LikePreview(), 
+      LikePreview(),
       CrudReceitas()
     ];
     return Options[selectedIndex];
@@ -81,8 +81,8 @@ class MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         floatingActionButton: ElevatedButton(
           onPressed: () {
-            //appState.deslogar();
-            appState.testeToggleLogado();
+            appState.deslogar();
+            //appState.testeToggleLogado();
             //appState.TESTE_adm();
           },
           child: const Text('Deslogar'),

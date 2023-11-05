@@ -42,7 +42,7 @@ class MyAppState extends ChangeNotifier {
 //inicio:
   var selectedIndex = 0;
   Widget page = LoginPage();
-  var logado = true;
+  var logado = false;
 
 //login:
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 0);
@@ -77,11 +77,11 @@ class MyAppState extends ChangeNotifier {
 
 // Parte  CRUD de receitas
   Receita receitaAtual = Receita(
-        tituloReceitas: 'tituloReceitas',
-        descricao: 'descricao',
-        id: '-1',
-        requisitos: 'requisitos',
-        preparo: '');
+      tituloReceitas: 'tituloReceitas',
+      descricao: 'descricao',
+      id: '-1',
+      requisitos: 'requisitos',
+      preparo: '');
 
   List<Receita> _receitas = [];
   List<Receita> get receitas => _receitas;

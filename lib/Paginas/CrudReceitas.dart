@@ -38,87 +38,90 @@ class CrudReceitasCrudState extends State<CrudReceitas> {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return ListView(
-      children: [
-        Text('Receitas', style: TextStyle(fontSize: 25)),
-        TextFormField(
-          controller: tituloController,
-          decoration: InputDecoration(labelText: 'Titulo da receita'),
-          onChanged: (value) {
-            setState(() {
-              tituloReceitas = value;
-            });
-          },
-        ),
-        TextFormField(
-          controller: descricaoController,
-          decoration: InputDecoration(labelText: 'Descrição'),
-          onChanged: (value) {
-            setState(() {
-              descricao = value;
-            });
-          },
-        ),
-        TextFormField(
-          controller: requisitosController,
-          decoration: InputDecoration(labelText: 'Ingredientes'),
-          onChanged: (value) {
-            setState(() {
-              requisitos = value;
-            });
-          },
-        ),
-        TextFormField(
-          controller: preparoController,
-          //inputFormatters: [_inputFormatter1],                      usado para receber so numeros
-          decoration: InputDecoration(labelText: 'Modo de Preparo'),
-          onChanged: (value) {
-            setState(() {
-              preparo = value;
-            });
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('Criar Receita'),
-                  content: TextField(
-                    controller: tituloController,
-                  ),
-                  actions: [
-                    TextButton(
-                      child: Text('Cancelar'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    TextButton(
-                      child: Text('Salvar'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        criaReceita(tituloReceitas, descricao, 0, appState.logged.id,
-                            requisitos, preparo);
-                        appState.adicionarReceita(Receita(
-                            tituloReceitas: tituloReceitas,
-                            descricao: descricao,
-                            id: '',
-                            requisitos: requisitos,
-                            preparo: preparo));
-                        submitForm();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        ),
-        Receitas(),
-      ],
+    return Padding(
+      padding: EdgeInsetsDirectional.all(20),
+      child: ListView(
+        children: [
+          Text('Receitas', style: TextStyle(fontSize: 25)),
+          TextFormField(
+            controller: tituloController,
+            decoration: InputDecoration(labelText: 'Titulo da receita'),
+            onChanged: (value) {
+              setState(() {
+                tituloReceitas = value;
+              });
+            },
+          ),
+          TextFormField(
+            controller: descricaoController,
+            decoration: InputDecoration(labelText: 'Descrição'),
+            maxLines: null,
+            onChanged: (value) {
+              setState(() {
+                descricao = value;
+              });
+            },
+          ),
+          TextFormField(
+            controller: requisitosController,
+            decoration: InputDecoration(labelText: 'Ingredientes'),
+            maxLines: null,
+            onChanged: (value) {
+              setState(() {
+                requisitos = value;
+              });
+            },
+          ),
+          TextFormField(
+            controller: preparoController,
+            //inputFormatters: [_inputFormatter1],                      usado para receber so numeros
+            decoration: InputDecoration(labelText: 'Modo de Preparo'),
+            maxLines: null,
+            onChanged: (value) {
+              setState(() {
+                preparo = value;
+              });
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Criar Receita'),
+                    actions: [
+                      TextButton(
+                        child: Text('Cancelar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text('Salvar'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          criaReceita(tituloReceitas, descricao, 0,
+                              appState.logged.id, requisitos, preparo);
+                          appState.adicionarReceita(Receita(
+                              tituloReceitas: tituloReceitas,
+                              descricao: descricao,
+                              id: '',
+                              requisitos: requisitos,
+                              preparo: preparo));
+                          submitForm();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+          //Receitas(),
+        ],
+      ),
     );
   }
 }
@@ -151,7 +154,8 @@ class _ReceitasState extends State<Receitas> {
                     leading: IconButton(
                       icon: Icon(Icons.menu),
                       onPressed: () {
-                        appState.receitaAtual = receita; // Agora atribui uma instância de Receita
+                        appState.receitaAtual =
+                            receita; // Agora atribui uma instância de Receita
                         Navigator.push(
                           context,
                           MaterialPageRoute(

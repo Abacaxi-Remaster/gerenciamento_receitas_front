@@ -55,7 +55,6 @@ Future<int> cadastro(tipo, nome, email, senha, ultimo) async {
   return response.statusCode;
 }
 
-
 Future<int> update(tipo, nome, email, senha, ultimo) async {
   RegisterUser newUser = RegisterUser(tipo, nome, email, senha);
 
@@ -75,6 +74,7 @@ Future<int> update(tipo, nome, email, senha, ultimo) async {
     }
   }
   return response.statusCode;
+}
 
 //Vagas/Inscritos:
 class Receita {
@@ -177,7 +177,6 @@ void deletaReceita(idReceita) async {
     print(response.statusCode);
     print(response.body);
   }
-
 }
 
 class LoggedUser {

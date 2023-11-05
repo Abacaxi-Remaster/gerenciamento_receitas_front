@@ -74,9 +74,9 @@ class _CommentPreviewState extends State<CommentPreview> {
                     itemCount: 5,
                     itemSize: 25,
                     ratingWidget: RatingWidget(
-                      full: Icon(Icons.favorite),
+                      full: Icon(Icons.star),
                       half: Icon(Icons.star_half_outlined),
-                      empty: Icon(Icons.favorite_border),
+                      empty: Icon(Icons.star_border),
                     ),
                     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                     onRatingUpdate: (rating) {
