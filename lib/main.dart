@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'HomePage.dart';
+
 import 'index.dart';
 import 'all.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -140,9 +142,16 @@ class MyAppState extends ChangeNotifier {
   }
   */
 
-  //teste:
+//Testes------------------------------------------------------------------------------------------------------
 
   var like = Icon(Icons.favorite_outline);
   var liked = false;
   var numerolike = 187;
+
+  testeToggleLogado() {
+    logado = true;
+    notifyListeners();
+  }
+
+  placeholder() {}
 }

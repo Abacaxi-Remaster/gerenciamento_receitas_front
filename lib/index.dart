@@ -55,6 +55,27 @@ Future<int> cadastro(tipo, nome, email, senha, ultimo) async {
   return response.statusCode;
 }
 
+
+Future<int> update(tipo, nome, email, senha, ultimo) async {
+  RegisterUser newUser = RegisterUser(tipo, nome, email, senha);
+
+  String jsonUser = jsonEncode(newUser.toJson());
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/update"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonUser,
+  );
+
+  if (response.statusCode == 200) {
+    print('Cadastro feito com sucesso');
+  } else {
+    if (response.statusCode == 400) {
+      print('erro no cadastro');
+    }
+  }
+  return response.statusCode;
+
 //Vagas/Inscritos:
 class Receita {
   String tituloReceitas;
@@ -156,6 +177,7 @@ void deletaReceita(idReceita) async {
     print(response.statusCode);
     print(response.body);
   }
+
 }
 
 class LoggedUser {
@@ -218,5 +240,26 @@ Future<LoggedUser> login(tipo, email, senha) async {
       print("outro");
     }
     return LoggedUser(204, 'email', 'senha', 'nome', 0);
+  }
+}
+
+class Curtida {
+  String Nome;
+  String id;
+
+  Curtida(this.Nome, this.id);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Nome': Nome,
+      'id': id,
+    };
+  }
+
+  static Curtida fromJson(Map<String, dynamic> json) {
+    return Curtida(
+      json['Nome'],
+      json['id'],
+    );
   }
 }

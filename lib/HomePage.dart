@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:receita_front/Paginas/Curtidas.dart';
 import 'all.dart';
 import 'main.dart';
 
@@ -20,13 +21,27 @@ class MyHomePageState extends State<MyHomePage> {
       label: Text('Teste: criar Comentários/Likes'),
     ),
     const NavigationRailDestination(
+      icon: Icon(Icons.note_add),
+      label: Text('Teste: Atualização Cadastral'),
+    ),
+    const NavigationRailDestination(
+      icon: Icon(Icons.star),
+      label: Text('Teste: Página Curtidas'),
+    ),
+    const NavigationRailDestination(
       icon: Icon(Icons.favorite),
       label: Text('Criar Receita'),
     ),
   ];
 
   Widget updatePage(selectedIndex) {
-    final Options = [SearchPreview(), CommentPreview(), CrudReceitas()];
+    final Options = [
+      SearchPreview(),
+      CommentPreview(),
+      AttCadastroPage(),
+      LikePreview(), 
+      CrudReceitas()
+    ];
     return Options[selectedIndex];
   }
 
@@ -66,8 +81,8 @@ class MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         floatingActionButton: ElevatedButton(
           onPressed: () {
-            appState.deslogar();
-            //appState.TESTE_toggle_tipoLogado();
+            //appState.deslogar();
+            appState.testeToggleLogado();
             //appState.TESTE_adm();
           },
           child: const Text('Deslogar'),
