@@ -17,16 +17,25 @@ validaNullClean(value) {
 
 //Cadastro/Login:
 class RegisterUser {
-  int tipo;
+  int id;
   String nome;
   String email;
   String senha;
 
-  RegisterUser(this.tipo, this.nome, this.email, this.senha);
+  RegisterUser(this.id, this.nome, this.email, this.senha);
 
   Map<String, dynamic> toJson() {
     return {
       'usuario': "user",
+      'nome': nome,
+      'email': email,
+      'senha': senha,
+    };
+  }
+
+  Map<String, dynamic> updateToJson() {
+    return {
+      'id': id,
       'nome': nome,
       'email': email,
       'senha': senha,
@@ -55,10 +64,10 @@ Future<int> cadastro(tipo, nome, email, senha, ultimo) async {
   return response.statusCode;
 }
 
-Future<int> update(tipo, nome, email, senha, ultimo) async {
-  RegisterUser newUser = RegisterUser(tipo, nome, email, senha);
+Future<int> update(id, nome, email, senha) async {
+  RegisterUser newUser = RegisterUser(id, nome, email, senha);
 
-  String jsonUser = jsonEncode(newUser.toJson());
+  String jsonUser = jsonEncode(newUser.updateToJson());
 
   http.Response response = await http.post(
     Uri.parse("http://localhost:8000/update"),

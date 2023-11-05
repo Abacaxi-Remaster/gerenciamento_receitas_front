@@ -208,11 +208,11 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                           appState.erro('Erro no cadastro - Email inválido!');
                         } else {
                           int resposta = await update(
-                              0,
-                              nomeController.text,
-                              emailController.text,
-                              passwordController.text,
-                              ultimoController.text);
+                            0,
+                            nomeController.text,
+                            emailController.text,
+                            passwordController.text,
+                          );
                           if (resposta == 200) {
                             appState.setPage(LoginPage());
                           } else {
@@ -228,16 +228,8 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                           .erro('Erro no cadastro - Senha Atual Incorreta!');
                     }
                   },
-                  child: Text('Cadastrar'),
+                  child: Text('Atualizar'),
                 ),
-                TextButton(
-                  onPressed: () {
-                    appState.setPage(LoginPage());
-                  },
-                  child: Text(
-                    'voltar para o Login',
-                  ),
-                )
               ],
             ),
           ),
