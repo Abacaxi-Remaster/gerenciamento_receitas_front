@@ -181,7 +181,7 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                 Padding(
                   padding: EdgeInsets.all(12),
                   child: TextFormField(
-                    controller: passwordController,
+                    controller: oldpasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -192,7 +192,7 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                 Padding(
                   padding: EdgeInsets.all(12),
                   child: TextFormField(
-                    controller: oldpasswordController,
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -208,13 +208,13 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                           appState.erro('Erro no cadastro - Email inválido!');
                         } else {
                           int resposta = await update(
-                            0,
+                            appState.logged.id,
                             nomeController.text,
                             emailController.text,
                             passwordController.text,
                           );
                           if (resposta == 200) {
-                            appState.setPage(LoginPage());
+                            appState.erro('Cadastro Atualizado com Scuesso!');
                           } else {
                             print(resposta);
                             appState
@@ -226,6 +226,10 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                     } else {
                       appState
                           .erro('Erro no cadastro - Senha Atual Incorreta!');
+                      print('atual:' +
+                          appState.logged.senha +
+                          '\n lida: ' +
+                          oldpasswordController.text);
                     }
                   },
                   child: Text('Atualizar'),

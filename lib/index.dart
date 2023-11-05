@@ -85,7 +85,6 @@ Future<int> update(id, nome, email, senha) async {
   return response.statusCode;
 }
 
-//Vagas/Inscritos:
 class Receita {
   String tituloReceitas;
   String descricao;
@@ -105,7 +104,7 @@ class Receita {
     return Receita(
       tituloReceitas: json['titulo_receitas'],
       descricao: json['descricao'],
-      id: json['id'],
+      id: json['id_receitas'],
       requisitos: json['requisitos'],
       preparo: json['preparo'],
     );
@@ -123,7 +122,7 @@ class Receita {
 
   Map<String, dynamic> toJson() {
     return {
-      "titulo_vaga": tituloReceitas,
+      "titulo_receitas": tituloReceitas,
       "descricao": descricao,
       "requisitos": requisitos,
       "preparo": preparo
@@ -141,7 +140,7 @@ void criaReceita(
       preparo: preparo);
   String jsonVaga = jsonEncode(novaVaga.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/vagas/cadastro"),
+    Uri.parse("http://localhost:8000/receita/cadastro"),
     headers: {'Content-Type': 'application/json'},
     body: jsonVaga,
   );
@@ -152,6 +151,8 @@ void criaReceita(
     print(response.statusCode);
   }
 }
+
+//uri: /receita/update
 
 Future<List<Receita>> listaReceitas() async {
   List<Receita> receitas = [];
