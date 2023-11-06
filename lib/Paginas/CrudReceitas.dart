@@ -208,7 +208,7 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Criar Receita'),
+                    title: Text('Atuilizar Receita'),
                     actions: [
                       TextButton(
                         child: Text('Cancelar'),
