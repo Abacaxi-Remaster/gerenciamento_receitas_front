@@ -214,7 +214,7 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                             passwordController.text,
                           );
                           if (resposta == 200) {
-                            appState.erro('Cadastro Atualizado com Scuesso!');
+                            appState.sucesso('Cadastro Atualizado com Sucesso!');
                           } else {
                             print(resposta);
                             appState
