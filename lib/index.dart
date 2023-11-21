@@ -105,7 +105,7 @@ class Receita {
     return Receita(
       tituloReceitas: json['titulo_receitas'],
       descricao: json['descricao'],
-      id: json['id'],
+      id: json['id_receitas'],
       requisitos: json['requisitos'],
       preparo: json['preparo'],
     );
@@ -152,6 +152,8 @@ void criaReceita(
     print(response.statusCode);
   }
 }
+
+//uri: /receita/update
 
 Future<List<Receita>> listaReceitas() async {
   List<Receita> receitas = [];
@@ -267,6 +269,51 @@ class Curtida {
   static Curtida fromJson(Map<String, dynamic> json) {
     return Curtida(
       json['Nome'],
+      json['id'],
+    );
+  }
+}
+
+Future<List<Curtida>> getLiked(id) async {
+  List<Curtida> curtidas = [];
+
+  String url = 'http://localhost:8000/curtidas/$id';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    curtidas =
+//rever -------------------------------------------------------------------------------------
+        List<Curtida>.from(decodedData.map((dynamic item) => item['nome']));
+  } else {
+    print(response.statusCode);
+  }
+
+  return curtidas;
+}
+
+class Comentario {
+  String user_id;
+  String id;
+
+  Comentario(this.user_id, this.id);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': user_id,
+      'id': id,
+    };
+  }
+
+  static Comentario fromJson(Map<String, dynamic> json) {
+    return Comentario(
+      json['user_id'],
       json['id'],
     );
   }
