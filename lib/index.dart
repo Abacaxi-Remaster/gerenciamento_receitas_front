@@ -272,3 +272,48 @@ class Curtida {
     );
   }
 }
+
+Future<List<Curtida>> getLiked(id) async {
+  List<Curtida> curtidas = [];
+
+  String url = 'http://localhost:8000/curtidas/$id';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    curtidas =
+//rever -------------------------------------------------------------------------------------
+        List<Curtida>.from(decodedData.map((dynamic item) => item['nome']));
+  } else {
+    print(response.statusCode);
+  }
+
+  return curtidas;
+}
+
+class Comentario {
+  String user_id;
+  String id;
+
+  Comentario(this.user_id, this.id);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': user_id,
+      'id': id,
+    };
+  }
+
+  static Comentario fromJson(Map<String, dynamic> json) {
+    return Comentario(
+      json['user_id'],
+      json['id'],
+    );
+  }
+}

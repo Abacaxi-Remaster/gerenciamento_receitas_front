@@ -142,6 +142,12 @@ class MyAppState extends ChangeNotifier {
   }
   */
 
+//Pesquisa:
+  var filtroAvaliacao = 0;
+  setMinimumRating(value) {
+    filtroAvaliacao = value;
+  }
+
 //Testes------------------------------------------------------------------------------------------------------
 
   var like = Icon(Icons.favorite_outline);
