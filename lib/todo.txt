@@ -34,8 +34,7 @@ Preciso:
     Para Quinta de preferencia
         -> (get) mandar string e valor de avaliação e receber lista de receitas com essa string e no mínimo essa avaliação
         -> (post) mandar id de usuario, id de receita e um valor de avaliação para ser armazenado (fazer a média com as outras avaliações)
-        -> 
-
+        -> parte do kutkut
 
     Pode ser para a proxima semana (mais facil d enrolar):
         -> mandar um 'id' de usuario e receber a lista com todas as curtidas dele
