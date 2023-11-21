@@ -85,7 +85,7 @@ Future<int> update(id, nome, email, senha) async {
   return response.statusCode;
 }
 
-//Vagas/Inscritos:
+//Receitas/Inscritos:
 class Receita {
   String tituloReceitas;
   String descricao;
@@ -123,7 +123,7 @@ class Receita {
 
   Map<String, dynamic> toJson() {
     return {
-      "titulo_vaga": tituloReceitas,
+      "titulo_receita": tituloReceitas,
       "descricao": descricao,
       "requisitos": requisitos,
       "preparo": preparo
@@ -133,21 +133,21 @@ class Receita {
 
 void criaReceita(
     tituloReceitas, descricao, id, idEmpresa, requisitos, preparo) async {
-  Receita novaVaga = Receita(
+  Receita novaReceita = Receita(
       tituloReceitas: tituloReceitas,
       descricao: descricao,
       id: 'id',
       requisitos: requisitos,
       preparo: preparo);
-  String jsonVaga = jsonEncode(novaVaga.toJson());
+  String jsonReceita = jsonEncode(novaReceita.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/vagas/cadastro"),
+    Uri.parse("http://localhost:8000/receitas/cadastro"),
     headers: {'Content-Type': 'application/json'},
-    body: jsonVaga,
+    body: jsonReceita,
   );
-  print(jsonVaga);
+  print(jsonReceita);
   if (response.statusCode == 200) {
-    print('Vaga registrada com sucesso');
+    print('Receita registrada com sucesso');
   } else {
     print(response.statusCode);
   }
@@ -157,7 +157,7 @@ Future<List<Receita>> listaReceitas() async {
   List<Receita> receitas = [];
 
   http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/vagas'),
+    Uri.parse('http://localhost:8000/receitas'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -172,16 +172,16 @@ Future<List<Receita>> listaReceitas() async {
 }
 
 void deletaReceita(idReceita) async {
-  Map<String, dynamic> receita = {"id_vaga": idReceita};
+  Map<String, dynamic> receita = {"id_receita": idReceita};
   String json = jsonEncode(receita);
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/vagas/deleta"),
+    Uri.parse("http://localhost:8000/receitas/deleta"),
     headers: {'Content-Type': 'application/json'},
     body: json,
   );
   if (response.statusCode == 200) {
-    print('Vaga Deletada com sucesso!');
+    print('Receita Deletada com sucesso!');
   } else {
     print(response.statusCode);
     print(response.body);
