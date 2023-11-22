@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -101,11 +102,10 @@ class Receita {
       required this.preparo});
 
   factory Receita.fromJson(Map<String, dynamic> json) {
-    print(json);
     return Receita(
-      tituloReceitas: json['titulo_receitas'],
+      tituloReceitas: json['titulo'],
       descricao: json['descricao'],
-      id: json['id_receitas'],
+      id: json['id_receitas'].toString(),
       requisitos: json['requisitos'],
       preparo: json['preparo'],
     );
@@ -290,7 +290,7 @@ Future<List<Curtida>> getLiked(id) async {
     List<dynamic> decodedData = jsonDecode(response.body);
     curtidas =
 //rever -------------------------------------------------------------------------------------
-        List<Curtida>.from(decodedData.map((dynamic item) => item['nome']));
+        List<Curtida>.from(decodedData.map((data) => Curtida.fromJson(data)));
   } else {
     print(response.statusCode);
   }
@@ -317,4 +317,63 @@ class Comentario {
       json['id'],
     );
   }
+}
+
+class Pesquisa {
+  String string;
+  String nota;
+
+  Pesquisa(this.string, this.nota);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'string': string,
+      'nota': nota,
+    };
+  }
+
+  static Pesquisa fromJson(Map<String, dynamic> json) {
+    return Pesquisa(
+      json['string'],
+      json['nota'],
+    );
+  }
+}
+
+Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
+  print('entrou');
+  String pesquisaString;
+  if (texto != null) {
+    pesquisaString = texto;
+  } else {
+    pesquisaString = ' ';
+  }
+
+  Pesquisa pesquisa = Pesquisa(pesquisaString, filtro);
+  List<Receita> sugestoes = [];
+  String url = "http://localhost:8000/filtro/read";
+  String jsonSearch = jsonEncode(pesquisa.toJson());
+
+  http.Response response = await http.post(Uri.parse(url),
+      headers: {'Content-Type': 'application/json'}, body: jsonSearch);
+
+  print('recebeu');
+  if (response.statusCode == 200) {
+    print("200");
+    List<dynamic> decodedData = jsonDecode(response.body);
+    print("decodou");
+    /*sugestoes =
+        List<Receita>.from(decodedData.map((data) => Receita.fromJson(data)));*/
+    sugestoes = decodedData.map((data) => Receita.fromJson(data)).toList();
+
+    print("print certo: \n");
+    sugestoes.forEach((element) {
+      print(element);
+    });
+  } else {
+    print("diff 200:");
+    print(response.statusCode);
+  }
+
+  return sugestoes;
 }

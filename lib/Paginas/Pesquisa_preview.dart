@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:receita_front/all.dart';
 import 'package:receita_front/main.dart';
 
 class SearchPreview extends StatefulWidget {
@@ -76,25 +77,29 @@ class _SearchPreviewState extends State<SearchPreview> {
 -> link: https://github.com/flutter/flutter/issues/126531 */
 
 //provavelmente funciona, mas é deselegante:
-                    /*    final searchFuture = search(controller.text);
-                      return [FutureBuilder(
+                    final searchFuture = pesquisaComFiltro(
+                        controller.text, appState.filtroAvaliacao.toString());
+                    return [
+                      FutureBuilder(
                         future: searchFuture,
-                        builder: (context, snapshot){
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return CircularProgressIndicator(); 
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
                           } else if (snapshot.hasError) {
-                            return Text(
-                                'Error: ${snapshot.error}'); 
+                            return Text('Error: ${snapshot.error}');
                           } else {
+                            print('entrou on else');
                             List<Receita>? list = snapshot.data;
-                            if (list != null){
+                            if (list != null) {
+                              print('entrou no if');
                               return ListView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: list.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return ListTile(
-                                    title: Text(list[index]),
+                                    title: Text(list[index].tituloReceitas),
                                   );
                                 },
                               );
@@ -102,10 +107,11 @@ class _SearchPreviewState extends State<SearchPreview> {
                           }
                           return const LinearProgressIndicator();
                         },
-                      )];
-                */
+                      )
+                    ];
+
 //teste:-------------------------------------------------------------------------------------------------
-                    return List<ListTile>.generate(5, (int index) {
+/*                    return List<ListTile>.generate(5, (int index) {
                       final String item = 'item $index';
                       return ListTile(
                         title: Text(item),
@@ -116,6 +122,7 @@ class _SearchPreviewState extends State<SearchPreview> {
                         },
                       );
                     });
+*/
 //teste ^^-----------------------------------------------------------------------------------------------
                   }),
                 ),
