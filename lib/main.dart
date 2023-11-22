@@ -42,7 +42,7 @@ class MyAppState extends ChangeNotifier {
 //inicio:
   var selectedIndex = 0;
   Widget page = LoginPage();
-  var logado = true;
+  var logado = false;
 
 //login:
   LoggedUser logged = LoggedUser(-1, 'email', 'senha', 'nome', 0);
@@ -111,6 +111,15 @@ class MyAppState extends ChangeNotifier {
     );
   }
 
+  void sucesso(String mensagem) {
+    scaffoldMessenger.showSnackBar(
+      SnackBar(
+        backgroundColor: Color.fromARGB(250, 46, 221, 55),
+        content: Text(mensagem),
+      ),
+    );
+  }
+
 //Navegação:
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -141,6 +150,12 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
   */
+
+//Pesquisa:
+  var filtroAvaliacao = 0;
+  setMinimumRating(value) {
+    filtroAvaliacao = value;
+  }
 
 //Testes------------------------------------------------------------------------------------------------------
 
