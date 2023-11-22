@@ -46,7 +46,7 @@ class MyHomePageState extends State<MyHomePage> {
       LikePreview(),
       CrudReceitas(),
       CrudEditarReceitas()
-    ];
+    ]; //
     return Options[selectedIndex];
   }
 
