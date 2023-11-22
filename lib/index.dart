@@ -123,7 +123,7 @@ class Receita {
 
   Map<String, dynamic> toJson() {
     return {
-      "titulo_receita": tituloReceitas,
+      "titulo_receitas": tituloReceitas,
       "descricao": descricao,
       "requisitos": requisitos,
       "preparo": preparo
@@ -141,7 +141,7 @@ void criaReceita(
       preparo: preparo);
   String jsonReceita = jsonEncode(novaReceita.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/receitas/cadastro"),
+    Uri.parse("http://localhost:8000/receita/cadastro"),
     headers: {'Content-Type': 'application/json'},
     body: jsonReceita,
   );
@@ -159,7 +159,7 @@ Future<List<Receita>> listaReceitas() async {
   List<Receita> receitas = [];
 
   http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/receitas'),
+    Uri.parse('http://localhost:8000/receita'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -178,7 +178,7 @@ void deletaReceita(idReceita) async {
   String json = jsonEncode(receita);
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/receitas/deleta"),
+    Uri.parse("http://localhost:8000/receita/deleta"),
     headers: {'Content-Type': 'application/json'},
     body: json,
   );
