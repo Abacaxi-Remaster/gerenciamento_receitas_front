@@ -36,6 +36,10 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.note_add),
       label: Text('Teste: Modificar Receita'),
     ),
+    const NavigationRailDestination(
+      icon: Icon(Icons.note),
+      label: Text('Teste: Visualizar e Deletar Receita'),
+    ),
   ];
 
   Widget updatePage(selectedIndex) {
@@ -45,7 +49,8 @@ class MyHomePageState extends State<MyHomePage> {
       AttCadastroPage(),
       LikePreview(),
       CrudReceitas(),
-      CrudEditarReceitas()
+      CrudEditarReceitas(),
+      Receitas()
     ]; //
     return Options[selectedIndex];
   }

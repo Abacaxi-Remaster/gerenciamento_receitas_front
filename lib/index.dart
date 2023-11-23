@@ -90,7 +90,7 @@ Future<int> update(id, nome, email, senha) async {
 class Receita {
   String tituloReceitas;
   String descricao;
-  String id;
+  String id = '0';
   String requisitos;
   String preparo;
 
@@ -123,6 +123,7 @@ class Receita {
 
   Map<String, dynamic> toJson() {
     return {
+      "id_receitas": id,
       "titulo_receitas": tituloReceitas,
       "descricao": descricao,
       "requisitos": requisitos,
@@ -158,8 +159,8 @@ void criaReceita(
 Future<List<Receita>> listaReceitas() async {
   List<Receita> receitas = [];
 
-  http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/receita'),
+  http.Response response = await http.post(
+    Uri.parse('http://localhost:8000/receita/read/all'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -174,11 +175,17 @@ Future<List<Receita>> listaReceitas() async {
 }
 
 void deletaReceita(idReceita) async {
-  Map<String, dynamic> receita = {"id_receita": idReceita};
+  Receita receita = Receita(
+      tituloReceitas: '',
+      descricao: '',
+      id: idReceita,
+      requisitos: '',
+      preparo: '');
+  //Map<String, dynamic> receita = {"id_receita": idReceita};
   String json = jsonEncode(receita);
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/receita/deleta"),
+    Uri.parse("http://localhost:8000/receita/delete"),
     headers: {'Content-Type': 'application/json'},
     body: json,
   );
@@ -357,21 +364,10 @@ Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
   http.Response response = await http.post(Uri.parse(url),
       headers: {'Content-Type': 'application/json'}, body: jsonSearch);
 
-  print('recebeu');
   if (response.statusCode == 200) {
-    print("200");
     List<dynamic> decodedData = jsonDecode(response.body);
-    print("decodou");
-    /*sugestoes =
-        List<Receita>.from(decodedData.map((data) => Receita.fromJson(data)));*/
     sugestoes = decodedData.map((data) => Receita.fromJson(data)).toList();
-
-    print("print certo: \n");
-    sugestoes.forEach((element) {
-      print(element);
-    });
   } else {
-    print("diff 200:");
     print(response.statusCode);
   }
 

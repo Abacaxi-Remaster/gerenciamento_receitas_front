@@ -89,10 +89,8 @@ class _SearchPreviewState extends State<SearchPreview> {
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else {
-                            print('entrou on else');
                             List<Receita>? list = snapshot.data;
                             if (list != null) {
-                              print('entrou no if');
                               return ListView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),

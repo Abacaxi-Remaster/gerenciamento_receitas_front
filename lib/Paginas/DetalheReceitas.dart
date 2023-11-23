@@ -31,16 +31,12 @@ class _DetalheReceitaState extends State<DetalheReceita> {
               children: [
                 Text('Descrição: ${receita.descricao}',
                     style: TextStyle(fontSize: 20)),
-                Text('Requisitos: ${receita.requisitos}',
+                Text('Ingredientes: ${receita.requisitos}',
                     style: TextStyle(fontSize: 15)),
-                Text('Salário: ${receita.preparo}',
+                Text('Modo de Preparo: ${receita.preparo}',
                     style: TextStyle(fontSize: 15)),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Text('Inscritos:', style: TextStyle(fontSize: 30)),
           ),
         ],
       ),
