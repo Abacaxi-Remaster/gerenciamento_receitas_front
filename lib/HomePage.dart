@@ -16,10 +16,10 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.search),
       label: Text('Teste: pesquisa'),
     ),
-    const NavigationRailDestination(
+    /*const NavigationRailDestination(
       icon: Icon(Icons.favorite),
       label: Text('Teste: criar Comentários/Likes'),
-    ),
+    ),*/
     const NavigationRailDestination(
       icon: Icon(Icons.key),
       label: Text('Teste: Atualização Cadastral'),
@@ -45,7 +45,7 @@ class MyHomePageState extends State<MyHomePage> {
   Widget updatePage(selectedIndex) {
     final Options = [
       SearchPreview(),
-      CommentPreview(),
+      //CommentPreview(),
       AttCadastroPage(),
       LikePreview(),
       CrudReceitas(),

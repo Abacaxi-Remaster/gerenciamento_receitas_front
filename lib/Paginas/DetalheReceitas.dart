@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
 import "../all.dart";
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetalheReceita extends StatefulWidget {
   @override
@@ -9,10 +10,27 @@ class DetalheReceita extends StatefulWidget {
 }
 
 class _DetalheReceitaState extends State<DetalheReceita> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final userController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     Receita receita = appState.receitaAtual;
+
+    int likes = 187;
+    var likeOrNot = false;
+    var LikeIcon = Icon(Icons.favorite_outline);
+//---------------------------------------------------------------------------------------------Pegar do Back! ^^^-----------------------------------------------------------
+    likeAndDislike() {
+      if (appState.liked) {
+        LikeIcon = Icon(Icons.favorite_outline);
+      } else {
+        LikeIcon = Icon(Icons.favorite);
+      }
+//---------------------------------------------------------------------------------------------Mandar para o back!---------------------------------------------------------
+    }
+
+    int rating = 0;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -30,11 +48,78 @@ class _DetalheReceitaState extends State<DetalheReceita> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Descrição: ${receita.descricao}',
-                    style: TextStyle(fontSize: 20)),
+                    style: TextStyle(fontSize: 25)),
                 Text('Ingredientes: ${receita.requisitos}',
-                    style: TextStyle(fontSize: 15)),
+                    style: TextStyle(fontSize: 20)),
                 Text('Modo de Preparo: ${receita.preparo}',
-                    style: TextStyle(fontSize: 15)),
+                    style: TextStyle(fontSize: 20)),
+                Form(
+                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    children: [
+                      //Text('Teste: Comentários'),
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                        child: TextFormField(
+                          controller: userController,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                              labelText: 'Insira seu Comentário'),
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          RatingBar(
+                            initialRating: 0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: false,
+                            itemCount: 5,
+                            itemSize: 25,
+                            ratingWidget: RatingWidget(
+                              full: Icon(Icons.star),
+                              half: Icon(Icons.star_half_outlined),
+                              empty: Icon(Icons.star_border),
+                            ),
+                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            onRatingUpdate: (rating) {
+                              //print(rating);
+// ----------------------------------------------------------------------------------------Mandar para o back!-------------------------------------------------------------------------
+                            },
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      likeAndDislike();
+                                    });
+                                  },
+                                  icon: LikeIcon),
+                              Text(appState.numerolike.toString())
+                            ],
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+// ----------------------------------------------------------------------------------------Mandar para o back! ( e att pagina)----------------------------------------------------
+                            },
+                            child: Text('Comentar'),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                //------------------------------------------------------------------------Criar Lista de Comentários----------------------------------------------------------------
               ],
             ),
           ),

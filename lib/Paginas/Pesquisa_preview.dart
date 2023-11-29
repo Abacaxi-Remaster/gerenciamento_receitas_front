@@ -98,6 +98,20 @@ class _SearchPreviewState extends State<SearchPreview> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return ListTile(
                                     title: Text(list[index].tituloReceitas),
+                                    trailing: IconButton(
+                                      icon: Icon(Icons.menu),
+                                      onPressed: () {
+                                        appState.receitaAtual = list[
+                                            index]; // Agora atribui uma instância de Receita
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetalheReceita(),
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   );
                                 },
                               );

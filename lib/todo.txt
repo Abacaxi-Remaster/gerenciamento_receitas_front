@@ -1,43 +1,36 @@
-Página de Pesquisa:
-    -> Tornar a pesquisa funcional
-    -> Fazer o filtro
 Página de Curtidas:
     -> rever index
-    -> falta back!
+    -> falta back! (ver se o luisinho ja fez)
 Modificar Receita: 
     -> se não tiver mudança, manter igual (ou pegar o texto já para ser modificado)
 Página de receita:
     -> Adicionar Likes/Comentário e avaliação
-        -> Associar esses 3 à receita
-            -> Tabela de comentários
-            -> número de Likes
-            -> tabela com avaliação 
-
-
+        -> Associar esses 3 à receita (luisinho ja fez o back acho)
 
 Pré-feito: 
     -> Conexão página Curtidas
-    -> filtro
 
 
-**** Fazer o mecanismo de pesquisa urgentemente! ****
-
-
-
-Para entregar na quarta: 
-    -> Vizualização e deleção da receita
-    -> Demonstração do filtro de pesquisa
-
-
-
-Preciso:
-    Para Quinta de preferencia
-        -> (get) mandar string e valor de avaliação e receber lista de receitas com essa string e no mínimo essa avaliação
-        -> (post) mandar id de usuario, id de receita e um valor de avaliação para ser armazenado (fazer a média com as outras avaliações)
-        -> parte do kutkut
-
+Preciso: ( nn lembro se ja foi feito!)
     Pode ser para a proxima semana (mais facil d enrolar):
         -> mandar um 'id' de usuario e receber a lista com todas as curtidas dele
         -> (post) mandar id de usuario, id de receita e um comentario para ser armazenado
         -> (get) mandar id de usuario e id de receita e receber o valor de avaliação desse usuário para essa receita
         -> (post) mandar um id de usuário e um id de receita e inverter o like dele (1 ou 0)
+
+_________________________________________________________________________________________________________________________________________________________________
+Falta para acabar:
+    -> conectar comentários com o back
+    -> exibição de comentários já existentes
+    -> colocar a avaliação em algum lugar da visualização!
+    -> Exibição correta de curtidas do usuário (e botão assim como pesquisa)
+    -> inicializar editor de receita com a receita existente
+    -> página de usuário:
+        -> olá, <nome do usuário> | Atualizar cadastro  | (+) [nova receita]
+            -------------------------------------------
+        -> Curtidas               | Minhas receitas 
+        -> Lista escolhida na barra acima (visualização/deleção ou curtidas)
+            -> modificar lista de receitas para mostrar somente as criadas pelo usuário
+    -> Adicionar receitas de Demonstração
+_________________________________________________________________________________________________________________________________________________________________
+
