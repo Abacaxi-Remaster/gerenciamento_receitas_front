@@ -11,7 +11,10 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   List<NavigationRailDestination> testes = [
-    //Empresa
+    const NavigationRailDestination(
+      icon: Icon(Icons.search),
+      label: Text('Pagina de Usuario'),
+    ),
     const NavigationRailDestination(
       icon: Icon(Icons.search),
       label: Text('Teste: pesquisa'),
@@ -24,10 +27,10 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.key),
       label: Text('Teste: Atualização Cadastral'),
     ),
-    const NavigationRailDestination(
+    /*const NavigationRailDestination(
       icon: Icon(Icons.star),
       label: Text('Teste: Página Curtidas'),
-    ),
+    ),*/
     const NavigationRailDestination(
       icon: Icon(Icons.note_add),
       label: Text('Teste: Criar Receita'),
@@ -36,22 +39,23 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.note_add),
       label: Text('Teste: Modificar Receita'),
     ),
-    const NavigationRailDestination(
+    /*const NavigationRailDestination(
       icon: Icon(Icons.note),
       label: Text('Teste: Visualizar e Deletar Receita'),
-    ),
+    ),*/
   ];
 
   Widget updatePage(selectedIndex) {
     final Options = [
+      Usuario(),
       SearchPreview(),
       //CommentPreview(),
       AttCadastroPage(),
-      LikePreview(),
+      //LikePreview(),
       CrudReceitas(),
       CrudEditarReceitas(),
-      Receitas()
-    ]; //
+      //Receitas()
+    ];
     return Options[selectedIndex];
   }
 

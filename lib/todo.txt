@@ -25,12 +25,11 @@ Falta para acabar:
     -> colocar a avaliação em algum lugar da visualização!
     -> Exibição correta de curtidas do usuário (e botão assim como pesquisa)
     -> inicializar editor de receita com a receita existente
-    -> página de usuário:
-        -> olá, <nome do usuário> | Atualizar cadastro  | (+) [nova receita]
-            -------------------------------------------
-        -> Curtidas               | Minhas receitas 
-        -> Lista escolhida na barra acima (visualização/deleção ou curtidas)
-            -> modificar lista de receitas para mostrar somente as criadas pelo usuário
+    -> modificar lista de receitas para mostrar somente as criadas pelo usuário
+
     -> Adicionar receitas de Demonstração
 _________________________________________________________________________________________________________________________________________________________________
+
+
+Fazer Botões de att cadastral e criar receita da mesma forma que a visualização (éstá marcado no arquivo 'Usuario' onde o Navigator tem q ir)
 

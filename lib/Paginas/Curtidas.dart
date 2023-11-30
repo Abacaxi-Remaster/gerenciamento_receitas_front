@@ -75,7 +75,30 @@ class _LikePreviewState extends State<LikePreview> {
 
     var curtidas = [temp, temp2];
 //teste^^
-    return Center(
+    return ListView(
+      children: [
+        /*Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          child: Text('Lista de curtidas:', style: TextStyle(fontSize: 25)),
+        ),*/
+        for (var curtida in curtidas!)
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: ListTile(
+              leading: Icon(Icons.favorite),
+              title: Text('${curtida.Nome}'),
+              trailing: IconButton(
+                  onPressed: () {
+                    setState(() {/*placeholder*/});
+                  },
+                  icon: Icon(Icons.arrow_right)),
+            ),
+          )
+      ],
+    );
+  }
+}
+/*Center(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 50, horizontal: 250),
         child: Container(
@@ -113,5 +136,4 @@ class _LikePreviewState extends State<LikePreview> {
         ),
       ),
     );
-  }
-}
+ */

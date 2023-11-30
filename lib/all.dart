@@ -12,3 +12,4 @@ export 'package:receita_front/Paginas/Cadastro.dart';
 export 'index.dart';
 export 'package:receita_front/Paginas/CrudReceitas.dart';
 export 'package:receita_front/Paginas/DetalheReceitas.dart';
+export 'package:receita_front/Paginas/Usuario.dart';
