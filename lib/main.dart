@@ -111,6 +111,15 @@ class MyAppState extends ChangeNotifier {
     );
   }
 
+  void sucesso(String mensagem) {
+    scaffoldMessenger.showSnackBar(
+      SnackBar(
+        backgroundColor: Color.fromARGB(250, 46, 221, 55),
+        content: Text(mensagem),
+      ),
+    );
+  }
+
 //Navegação:
   void setPage(Widget newPage) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -141,6 +150,12 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
   */
+
+//Pesquisa:
+  var filtroAvaliacao = 0;
+  setMinimumRating(value) {
+    filtroAvaliacao = value;
+  }
 
 //Testes------------------------------------------------------------------------------------------------------
 

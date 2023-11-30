@@ -1,0 +1,35 @@
+Página de Curtidas:
+    -> rever index
+    -> falta back! (ver se o luisinho ja fez)
+Modificar Receita: 
+    -> se não tiver mudança, manter igual (ou pegar o texto já para ser modificado)
+Página de receita:
+    -> Adicionar Likes/Comentário e avaliação
+        -> Associar esses 3 à receita (luisinho ja fez o back acho)
+
+Pré-feito: 
+    -> Conexão página Curtidas
+
+
+Preciso: ( nn lembro se ja foi feito!)
+    Pode ser para a proxima semana (mais facil d enrolar):
+        -> mandar um 'id' de usuario e receber a lista com todas as curtidas dele
+        -> (post) mandar id de usuario, id de receita e um comentario para ser armazenado
+        -> (get) mandar id de usuario e id de receita e receber o valor de avaliação desse usuário para essa receita
+        -> (post) mandar um id de usuário e um id de receita e inverter o like dele (1 ou 0)
+
+_________________________________________________________________________________________________________________________________________________________________
+Falta para acabar:
+    -> conectar comentários com o back
+    -> exibição de comentários já existentes
+    -> colocar a avaliação em algum lugar da visualização!
+    -> Exibição correta de curtidas do usuário (e botão assim como pesquisa)
+    -> inicializar editor de receita com a receita existente
+    -> modificar lista de receitas para mostrar somente as criadas pelo usuário
+
+    -> Adicionar receitas de Demonstração
+_________________________________________________________________________________________________________________________________________________________________
+
+
+Fazer Botões de att cadastral e criar receita da mesma forma que a visualização (éstá marcado no arquivo 'Usuario' onde o Navigator tem q ir)
+
