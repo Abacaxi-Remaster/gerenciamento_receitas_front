@@ -268,14 +268,14 @@ class _ReceitasState extends State<Receitas> {
                 for (var receita in receitas!)
                   ListTile(
                     leading: IconButton(
-                      icon: Icon(Icons.menu),
+                      icon: Icon(Icons.edit),
                       onPressed: () {
                         appState.receitaAtual =
                             receita; // Agora atribui uma instância de Receita
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetalheReceita(),
+                            builder: (context) => CrudEditarReceitas(),
                           ),
                         );
                       },
