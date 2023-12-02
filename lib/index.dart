@@ -373,3 +373,20 @@ Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
 
   return sugestoes;
 }
+
+Future<double> AvaliacaoRead(idReceita) async {
+  double avaliacao = 0;
+  String url = "http://localhost:8000/avaliacao/read";
+  String jsonid = jsonEncode(idReceita);
+
+  http.Response response = await http.post(Uri.parse(url),
+      headers: {'Content-Type': 'application/json'}, body: jsonid);
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+  } else {
+    print(response.statusCode);
+  }
+
+  return avaliacao;
+}

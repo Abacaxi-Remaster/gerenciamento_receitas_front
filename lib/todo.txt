@@ -20,16 +20,31 @@ Preciso: ( nn lembro se ja foi feito!)
 
 _________________________________________________________________________________________________________________________________________________________________
 Falta para acabar:
+    -> lista de curtidas do usuário
+    -> lista de receitas criadas pelo usuário
+    -> Adicionar Botão para editar receitas
     -> conectar comentários com o back
-    -> exibição de comentários já existentes
-    -> colocar a avaliação em algum lugar da visualização!
-    -> Exibição correta de curtidas do usuário (e botão assim como pesquisa)
+    -> exibir comentários já existentes
     -> inicializar editor de receita com a receita existente
-    -> modificar lista de receitas para mostrar somente as criadas pelo usuário
+
+    -> colocar a avaliação na barra de sugestões!
+
+    -> Recuperar Senha
 
     -> Adicionar receitas de Demonstração
 _________________________________________________________________________________________________________________________________________________________________
 
 
-Fazer Botões de att cadastral e criar receita da mesma forma que a visualização (éstá marcado no arquivo 'Usuario' onde o Navigator tem q ir)
+
+Pedidos para o luisinho: 
+    -> mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
+    -> back recebe id de usuário e manda para o front a lista de receitas curtidas por ele
+    -> back recebe id de usuário e manda para o front a lista de receitas criadas por ele
+    
+    
+KutKut:
+    -> Fazer Botões de att cadastral e criar receita da mesma forma que a visualização (éstá marcado no arquivo 'Usuario' onde o Navigator tem q ir)
+    -> Recuperar Senha
+    -> ver se o editar receita funciona!
+
 
