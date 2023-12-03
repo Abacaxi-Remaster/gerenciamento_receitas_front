@@ -200,40 +200,63 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (oldpasswordController.text == appState.logged.senha) {
-                      if (_formKey.currentState!.validate()) {
-                        if (emailController.text == 'ADM') {
-                          appState.erro('Erro no cadastro - Email inválido!');
-                        } else {
-                          int resposta = await update(
-                            appState.logged.id,
-                            nomeController.text,
-                            emailController.text,
-                            passwordController.text,
-                          );
-                          if (resposta == 200) {
-                            appState.sucesso('Cadastro Atualizado com Sucesso!');
-                          } else {
-                            print(resposta);
-                            appState
-                                .erro('Erro no cadastro - Email já em uso!');
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          appState.setPage(Usuario());
+                        },
+                        child: Text('Voltar')),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (oldpasswordController.text ==
+                            appState.logged.senha) {
+                          if (_formKey.currentState!.validate()) {
+                            if (emailController.text == 'ADM') {
+                              appState
+                                  .erro('Erro no cadastro - Email inválido!');
+                            } else {
+                              int resposta = await update(
+                                appState.logged.id,
+                                nomeController.text,
+                                emailController.text,
+                                passwordController.text,
+                              );
+                              if (resposta == 200) {
+                                appState.sucesso(
+                                    'Cadastro Atualizado com Sucesso!');
+                                appState.logged = LoggedUser(
+                                    0,
+                                    emailController.text,
+                                    passwordController.text,
+                                    nomeController.text,
+                                    appState.logged.id);
+                                appState.setPage(Usuario());
+                              } else {
+                                print(resposta);
+                                appState.erro(
+                                    'Erro no cadastro - Email já em uso!');
+                              }
+                            }
+                            ;
                           }
+                        } else {
+                          appState.erro(
+                              'Erro no cadastro - Senha Atual Incorreta!');
+                          print('atual:' +
+                              appState.logged.senha +
+                              '\n lida: ' +
+                              oldpasswordController.text);
                         }
-                        ;
-                      }
-                    } else {
-                      appState
-                          .erro('Erro no cadastro - Senha Atual Incorreta!');
-                      print('atual:' +
-                          appState.logged.senha +
-                          '\n lida: ' +
-                          oldpasswordController.text);
-                    }
-                  },
-                  child: Text('Atualizar'),
-                ),
+                      },
+                      child: Text('Atualizar'),
+                    ),
+                  ],
+                )
               ],
             ),
           ),

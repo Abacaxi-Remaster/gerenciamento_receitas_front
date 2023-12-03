@@ -38,9 +38,13 @@ class CrudReceitasCrudState extends State<CrudReceitas> {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return Padding(
-      padding: EdgeInsetsDirectional.all(20),
-      child: ListView(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        title: Text("Nova Receita"),
+        titleTextStyle: Theme.of(context).textTheme.headlineMedium,
+      ),
+      body: ListView(
         children: [
           Text('Receitas', style: TextStyle(fontSize: 25)),
           TextFormField(
@@ -111,6 +115,7 @@ class CrudReceitasCrudState extends State<CrudReceitas> {
                               requisitos: requisitos,
                               preparo: preparo));
                           submitForm();
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
@@ -155,10 +160,15 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    Receita receita = appState.receitaAtual;
 
-    return Padding(
-      padding: EdgeInsetsDirectional.all(20),
-      child: ListView(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        title: Text(receita.tituloReceitas),
+        titleTextStyle: Theme.of(context).textTheme.headlineMedium,
+      ),
+      body: ListView(
         children: [
           Text('Editar receita', style: TextStyle(fontSize: 25)),
           TextFormField(
@@ -263,7 +273,7 @@ class _ReceitasState extends State<Receitas> {
             return Text('Error: ${snapshot.error}');
           } else {
             List<Receita>? receitas = snapshot.data;
-            return Column(
+            return ListView(
               children: [
                 for (var receita in receitas!)
                   ListTile(

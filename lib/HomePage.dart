@@ -23,22 +23,22 @@ class MyHomePageState extends State<MyHomePage> {
       icon: Icon(Icons.favorite),
       label: Text('Teste: criar Comentários/Likes'),
     ),*/
-    const NavigationRailDestination(
+    /*const NavigationRailDestination(
       icon: Icon(Icons.key),
       label: Text('Teste: Atualização Cadastral'),
-    ),
+    ),*/
     /*const NavigationRailDestination(
       icon: Icon(Icons.star),
       label: Text('Teste: Página Curtidas'),
     ),*/
-    const NavigationRailDestination(
+    /*const NavigationRailDestination(
       icon: Icon(Icons.note_add),
       label: Text('Teste: Criar Receita'),
-    ),
-    const NavigationRailDestination(
+    ),*/
+    /*const NavigationRailDestination(
       icon: Icon(Icons.note_add),
       label: Text('Teste: Modificar Receita'),
-    ),
+    ),*/
     /*const NavigationRailDestination(
       icon: Icon(Icons.note),
       label: Text('Teste: Visualizar e Deletar Receita'),
@@ -50,10 +50,10 @@ class MyHomePageState extends State<MyHomePage> {
       Usuario(),
       SearchPreview(),
       //CommentPreview(),
-      AttCadastroPage(),
+      //AttCadastroPage(),
       //LikePreview(),
-      CrudReceitas(),
-      CrudEditarReceitas(),
+      //CrudReceitas(),
+      //CrudEditarReceitas(),
       //Receitas()
     ];
     return Options[selectedIndex];

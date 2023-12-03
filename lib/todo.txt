@@ -2,12 +2,9 @@ ________________________________________________________________________________
 Falta para acabar:
     -> lista de curtidas do usuário                                     Luisinho / Eu                  
     -> lista de receitas criadas pelo usuário                           Luisinho / Eu
-    -> Adicionar Funcionalidade ao Botão para criar receitas            KutKut
-    -> Adicionar Funcionalidade ao Botão para editar receitas           KutKut
-    -> Adicionar Funcionalidade ao Botão para atualiazr cadastro        KutKut                             
+    -> Adicionar Funcionalidade para a pagina de editar receita         KutKut                          
     -> conectar comentários com o back                                  Eu / Luisinho
     -> exibir comentários já existentes                                 Luisinho / Eu
-    -> inicializar editor de receita com a receita existente            Eu
     -> colocar a avaliação na barra de sugestões!                       Luisinho / Eu
     -> Recuperar Senha                                                  KutKut / Luisinho
 
@@ -17,7 +14,7 @@ ________________________________________________________________________________
 
 
 Pedidos para o luisinho: 
-    -> mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
+    -> back manda a avaliação de cada receita para o front junto da lista de receitas (filtro)
     -> back recebe id de usuário e manda para o front a lista de receitas curtidas por ele
     -> back recebe id de usuário e manda para o front a lista de receitas criadas por ele
     -> back recebe id de usuário e id de receita e inverter o like

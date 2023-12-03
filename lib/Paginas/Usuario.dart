@@ -56,16 +56,21 @@ class _UsuarioState extends State<Usuario> {
                         IconButton(
                           icon: Icon(Icons.add),
                           tooltip: "Criar Receita",
-                          onPressed: (
-                              //-------------------------------------------------------------------Func p criar receita------------------------------------------------------
-                              ) {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CrudReceitas(),
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(
                           width: 20,
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            //---------------------------------------------------------------------Direcionar p cadastro update---------------------------------------------
+                            appState.setPage(AttCadastroPage());
                           },
                           child: Text('Atualizar\nCadastro'),
                         ),
