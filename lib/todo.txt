@@ -31,3 +31,11 @@ Pedidos Luisinho KutKut:
     -> back recebe id de usuario e nova senha e atualiza o banco de dados
 
 
+
+Testar:
+    -> inserir e enviar avaliação tava recebendo como idreceita, virou idreceitaS
+    -> curtir (retorna lista de curtidas do usuario)
+    -> retorna lista de criadas
+    -> retorna a avaliação do usuário '/avaliacao/usuario/read'
+
+

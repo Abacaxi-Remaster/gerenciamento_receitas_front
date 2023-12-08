@@ -284,7 +284,7 @@ class Curtida {
 Future<List<Curtida>> getLiked(id) async {
   List<Curtida> curtidas = [];
 
-  String url = 'http://localhost:8000/curtidas/$id';
+  String url = 'http://localhost:8000/curtida/read/all/$id';
 
   http.Response response = await http.get(
     Uri.parse(url),
@@ -295,14 +295,40 @@ Future<List<Curtida>> getLiked(id) async {
 
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
+    print(response.statusCode);
     curtidas =
-//rever -------------------------------------------------------------------------------------
         List<Curtida>.from(decodedData.map((data) => Curtida.fromJson(data)));
   } else {
     print(response.statusCode);
   }
 
   return curtidas;
+}
+
+Future<bool> likedOrNot(idUser, idReceita) async {
+  print("entrou  em likedOrNot");
+  return false;
+}
+
+void toggleLike(idUsuario, idReceita) async {
+  print('entrou em curtida');
+  Map<String, dynamic> receita = {
+    "id_receitas": idReceita,
+    "id_usuario": idUsuario
+  };
+  String json = jsonEncode(receita);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/curtida/cadastro"),
+    headers: {'Content-Type': 'application/json'},
+    body: json,
+  );
+  if (response.statusCode == 200) {
+    print('curtida registrada com sucesso');
+  } else {
+    print(response.statusCode);
+    print(response.body);
+  }
 }
 
 class Comentario {
@@ -335,7 +361,7 @@ void avaliar(rating, userId, recipeId) async {
   //alterar a avaliação do usuário
   Map<String, dynamic> like = {
     'user_id': userId,
-    'idReceita': recipeId,
+    'idReceitas': recipeId,
     'avaliacao': rating
   };
   String json = jsonEncode(like);
@@ -348,25 +374,6 @@ void avaliar(rating, userId, recipeId) async {
   );
   if (response.statusCode == 200) {
     print('Erro ao alterar a avaliação');
-  } else {
-    print(response.statusCode);
-    print(response.body);
-  }
-}
-
-void toggleLike(userId, recipeId) async {
-  //inverter like do usuário para aquela receita
-  Map<String, dynamic> like = {'user_id': userId, 'idReceita': recipeId};
-  String json = jsonEncode(like);
-  String url = "";
-
-  http.Response response = await http.post(
-    Uri.parse(url),
-    headers: {'Content-Type': 'application/json'},
-    body: json,
-  );
-  if (response.statusCode == 200) {
-    print('Erro ao alterar o like');
   } else {
     print(response.statusCode);
     print(response.body);
@@ -414,7 +421,7 @@ class Pesquisa {
 }
 
 Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
-  print('entrou');
+  print('entrou em pesquisaComFiltro');
   String pesquisaString;
   if (texto != null) {
     pesquisaString = texto;
@@ -455,4 +462,17 @@ Future<double> AvaliacaoRead(idReceita) async {
   }
 
   return avaliacao;
+}
+
+Future<List<Map<String, String>>> fetchComments() async {
+  // Your logic to fetch data goes here
+  // For example, you can use http package to make an HTTP request
+  // and parse the response to get a List<Map<String, String>>
+  // Replace the following line with your actual data fetching logic
+  // Simulating a delay for demonstration purposes
+  return [
+    {'name': 'User1', 'message': 'Comment 1'},
+    {'name': 'User2', 'message': 'Comment 2'},
+    // Add more data as needed
+  ];
 }

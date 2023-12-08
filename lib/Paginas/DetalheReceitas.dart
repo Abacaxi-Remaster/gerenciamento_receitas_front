@@ -1,8 +1,13 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
 import "../all.dart";
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:comment_box/comment/comment.dart';
+import 'package:comment_box/comment/test.dart';
+import 'package:comment_box/main.dart';
 
 class DetalheReceita extends StatefulWidget {
   @override
@@ -12,21 +17,43 @@ class DetalheReceita extends StatefulWidget {
 class _DetalheReceitaState extends State<DetalheReceita> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final userController = TextEditingController();
+
+  late Future<List<Map<String, String>>> dataFuture;
+  late int likes;
+  late Future<bool> likeOrNot;
+  late Icon LikeIcon; // = Icon(Icons.favorite_outline)
+  late double initRating;
+
+  @override
+  void initState() {
+    super.initState();
+    var appState = context.read<MyAppState>();
+    //get user info:
+    likes = 187;
+    likeOrNot = likedOrNot(appState.logged.id, appState.receitaAtual.id);
+    LikeIcon = Icon(Icons.favorite_outline);
+    initRating = 3;
+
+    //get existing comments:
+    dataFuture = fetchComments();
+  }
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     Receita receita = appState.receitaAtual;
-
-    int likes = 187;
-    var likeOrNot = false;
-    var LikeIcon = Icon(Icons.favorite_outline);
-    double initRating = 3;
 //---------------------------------------------------------------------------------------------Pegar do Back! ^^^-----------------------------------------------------------
     likeAndDislike() {
       if (appState.liked) {
-        LikeIcon = Icon(Icons.favorite_outline);
+        setState(() {
+          appState.liked = false;
+          LikeIcon = Icon(Icons.favorite_outline);
+        });
       } else {
-        LikeIcon = Icon(Icons.favorite);
+        setState(() {
+          appState.liked = true;
+          LikeIcon = Icon(Icons.favorite);
+        });
       }
       toggleLike(appState.logged.id, appState.receitaAtual.id);
     }
@@ -122,7 +149,36 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                     ],
                   ),
                 ),
-                //------------------------------------------------------------------------Criar Lista de Comentários----------------------------------------------------------------
+                FutureBuilder<List<Map<String, String>>>(
+                  future: dataFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // Display a loading indicator while waiting for data
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      // Display an error message if an error occurs
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      // Display your list of comments once the data is available
+                      return Column(
+                        children: [
+                          for (var i = 0; i < snapshot.data!.length; i++)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
+                              child: ListTile(
+                                title: Text(
+                                  snapshot.data![i]['name']!,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(snapshot.data![i]['message']!),
+                              ),
+                            ),
+                        ],
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ),
