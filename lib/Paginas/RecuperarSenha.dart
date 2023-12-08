@@ -13,7 +13,7 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final oldpasswordController = TextEditingController();
+  final confirmarNovaSenhaController = TextEditingController();
   final nomeController = TextEditingController();
 
   @override
@@ -73,7 +73,7 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
                 Padding(
                   padding: EdgeInsets.all(12),
                   child: TextFormField(
-                    controller: oldpasswordController,
+                    controller: confirmarNovaSenhaController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -83,27 +83,24 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    if (oldpasswordController.text == passwordController.text) {
+                    if (confirmarNovaSenhaController.text == passwordController.text) {
                       if (_formKey.currentState!.validate()) {
-                        if (emailController.text == 'ADM') {
-                          appState.erro('Erro no cadastro - Email inválido!');
+                        int resposta = await atualizarSenha(
+                          emailController.text,
+                          passwordController.text,
+                          confirmarNovaSenhaController.text,
+                        );
+
+                        if (resposta == 200) {
+                          appState.setPage(LoginPage());
+                        } else if (resposta == 400) {
+                          appState.erro('Erro no cadastro - Senhas Diferentes!');
                         } else {
-                          int resposta = await emailUsuario(
-                            emailController.text,
-                          );
-                          if (resposta == 200) {
-                            appState.setPage(LoginPage());
-                          } else {
-                            print(resposta);
-                            appState
-                                .erro('Erro - Email não existe');
-                          }
+                          appState.erro('Erro na atualização de senha');
                         }
-                        ;
                       }
                     } else {
-                      appState
-                          .erro('Erro no cadastro - Senhas Diferentes!');
+                      appState.erro('Erro no cadastro - Senhas Diferentes!');
                     }
                   },
                   child: Text('Atualizar Senha'),
