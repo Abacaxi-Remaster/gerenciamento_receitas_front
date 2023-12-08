@@ -13,11 +13,11 @@ class MyHomePageState extends State<MyHomePage> {
   List<NavigationRailDestination> testes = [
     const NavigationRailDestination(
       icon: Icon(Icons.search),
-      label: Text('Pagina de Usuario'),
+      label: Text('Teste: pesquisa'),
     ),
     const NavigationRailDestination(
-      icon: Icon(Icons.search),
-      label: Text('Teste: pesquisa'),
+      icon: Icon(Icons.home),
+      label: Text('Pagina de Usuario'),
     ),
     /*const NavigationRailDestination(
       icon: Icon(Icons.favorite),
@@ -47,8 +47,8 @@ class MyHomePageState extends State<MyHomePage> {
 
   Widget updatePage(selectedIndex) {
     final Options = [
-      Usuario(),
       SearchPreview(),
+      Usuario(),
       //CommentPreview(),
       //AttCadastroPage(),
       //LikePreview(),

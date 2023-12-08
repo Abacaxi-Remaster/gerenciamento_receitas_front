@@ -308,13 +308,16 @@ Future<List<Curtida>> getLiked(id) async {
 class Comentario {
   String user_id;
   String id;
+  String texto;
+  String idReceita;
 
-  Comentario(this.user_id, this.id);
+  Comentario(this.user_id, this.id, this.texto, this.idReceita);
 
   Map<String, dynamic> toJson() {
     return {
       'user_id': user_id,
-      'id': id,
+      'texto': texto,
+      'idReceita': idReceita,
     };
   }
 
@@ -322,7 +325,70 @@ class Comentario {
     return Comentario(
       json['user_id'],
       json['id'],
+      json['texto'],
+      json['idReceita'],
     );
+  }
+}
+
+void avaliar(rating, userId, recipeId) async {
+  //alterar a avaliação do usuário
+  Map<String, dynamic> like = {
+    'user_id': userId,
+    'idReceita': recipeId,
+    'avaliacao': rating
+  };
+  String json = jsonEncode(like);
+  String url = "";
+
+  http.Response response = await http.post(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+    body: json,
+  );
+  if (response.statusCode == 200) {
+    print('Erro ao alterar a avaliação');
+  } else {
+    print(response.statusCode);
+    print(response.body);
+  }
+}
+
+void toggleLike(userId, recipeId) async {
+  //inverter like do usuário para aquela receita
+  Map<String, dynamic> like = {'user_id': userId, 'idReceita': recipeId};
+  String json = jsonEncode(like);
+  String url = "";
+
+  http.Response response = await http.post(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+    body: json,
+  );
+  if (response.statusCode == 200) {
+    print('Erro ao alterar o like');
+  } else {
+    print(response.statusCode);
+    print(response.body);
+  }
+}
+
+void comentar(texto, userId, recipeId) async {
+  //guardar um novo comentário do usuário em uma receita
+  Comentario newComment = Comentario(userId, '0', texto, recipeId);
+  String json = jsonEncode(newComment.toJson());
+  String url = "";
+
+  http.Response response = await http.post(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+    body: json,
+  );
+  if (response.statusCode == 200) {
+    print('Erro ao adicionar comentário');
+  } else {
+    print(response.statusCode);
+    print(response.body);
   }
 }
 

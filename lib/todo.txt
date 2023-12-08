@@ -1,9 +1,11 @@
 _________________________________________________________________________________________________________________________________________________________________
 Falta para acabar:
     -> lista de curtidas do usuário                                     Luisinho / Eu                  
-    -> lista de receitas criadas pelo usuário                           Luisinho / Eu
-    -> Adicionar Funcionalidade para a pagina de editar receita         KutKut                          
-    -> conectar comentários com o back                                  Eu / Luisinho
+    -> lista de receitas criadas pelo usuário                           Luisinho / Eu 
+    -> Adicionar Funcionalidade para a pagina de editar receita         KutKut        
+    -> Armazenar Comentário / Like / avaliação                          Luisinho
+    -> atualizar numero de likes
+    -> iniciar avaliação (0 se nao avaliou, valor atual se ja avaliou)
     -> exibir comentários já existentes                                 Luisinho / Eu
     -> colocar a avaliação na barra de sugestões!                       Luisinho / Eu
     -> Recuperar Senha                                                  KutKut / Luisinho
@@ -12,9 +14,8 @@ Falta para acabar:
     -> Fazer a Apresentação                                             Qualquer Pessoa
 _________________________________________________________________________________________________________________________________________________________________
 
-
 Pedidos para o luisinho: 
-    -> back manda a avaliação de cada receita para o front junto da lista de receitas (filtro)
+    -> alterar "filtro/read" para o back mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
     -> back recebe id de usuário e manda para o front a lista de receitas curtidas por ele
     -> back recebe id de usuário e manda para o front a lista de receitas criadas por ele
     -> back recebe id de usuário e id de receita e inverter o like
@@ -22,9 +23,11 @@ Pedidos para o luisinho:
     -> back recebe id de usuario, id de receita e um comentario para ser armazenado
     
 KutKut:
-    -> Fazer Botões de att cadastral e criar receita da mesma forma que a visualização (éstá marcado no arquivo 'Usuario' onde o Navigator tem q ir)
     -> Recuperar Senha
     -> ver se o editar receita funciona!
-    -> fazer a mesma coisa do primeiro ponto com o botão de editar
+
+Pedidos Luisinho KutKut:
+    -> back recebe email e retorna nome de usuário e id do usuário
+    -> back recebe id de usuario e nova senha e atualiza o banco de dados
 
 

@@ -20,6 +20,7 @@ class _DetalheReceitaState extends State<DetalheReceita> {
     int likes = 187;
     var likeOrNot = false;
     var LikeIcon = Icon(Icons.favorite_outline);
+    double initRating = 3;
 //---------------------------------------------------------------------------------------------Pegar do Back! ^^^-----------------------------------------------------------
     likeAndDislike() {
       if (appState.liked) {
@@ -27,7 +28,7 @@ class _DetalheReceitaState extends State<DetalheReceita> {
       } else {
         LikeIcon = Icon(Icons.favorite);
       }
-//---------------------------------------------------------------------------------------------Mandar para o back!---------------------------------------------------------
+      toggleLike(appState.logged.id, appState.receitaAtual.id);
     }
 
     int rating = 0;
@@ -80,7 +81,7 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           RatingBar(
-                            initialRating: 0,
+                            initialRating: initRating,
                             direction: Axis.horizontal,
                             allowHalfRating: false,
                             itemCount: 5,
@@ -93,7 +94,8 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                             itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                             onRatingUpdate: (rating) {
                               //print(rating);
-// ----------------------------------------------------------------------------------------Mandar para o back!-------------------------------------------------------------------------
+                              avaliar(rating, appState.logged.id,
+                                  appState.receitaAtual.id);
                             },
                           ),
                           Row(
@@ -110,7 +112,8 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                           ),
                           ElevatedButton(
                             onPressed: () async {
-// ----------------------------------------------------------------------------------------Mandar para o back! ( e att pagina)----------------------------------------------------
+                              comentar(userController, appState.logged.id,
+                                  appState.receitaAtual.id);
                             },
                             child: Text('Comentar'),
                           ),
