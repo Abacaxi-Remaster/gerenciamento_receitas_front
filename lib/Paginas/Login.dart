@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:receita_front/Paginas/RecuperarSenha.dart';
 import 'package:receita_front/all.dart';
 import 'package:receita_front/HomePage.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +99,15 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'Cadastro',
                 ),
-              )
+              ),
+              TextButton(
+                onPressed: () {
+                  appState.setPage(RecuperarSenhaPage());
+                },
+                child: Text(
+                  'Recuperar Senha',
+                ),
+              ),
             ],
           ),
         ),

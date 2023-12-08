@@ -85,6 +85,46 @@ Future<int> update(id, nome, email, senha) async {
   return response.statusCode;
 }
 
+Future<int> emailUsuario(email) async {
+  String jsonUser = jsonEncode(email);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/emailUsuario"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonUser,
+  );
+
+  if (response.statusCode == 200) {
+    print('Usuario Email');
+  } else {
+    if (response.statusCode == 400) {
+      print('Email nao existe');
+    }
+  }
+  return response.statusCode;
+}
+
+Future<int> recuperarSenha(id, nome, email, senha) async {
+  RegisterUser newUser = RegisterUser(id, nome, email, senha);
+
+  String jsonUser = jsonEncode(newUser.updateToJson());
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/recuperarSenha"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonUser,
+  );
+
+  if (response.statusCode == 200) {
+    print('Ataulizou a senha');
+  } else {
+    if (response.statusCode == 400) {
+      print('Erro na atualizacao');
+    }
+  }
+  return response.statusCode;
+}
+
 //Receitas/Inscritos:
 class Receita {
   String tituloReceitas;
