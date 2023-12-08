@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -121,8 +122,9 @@ class Receita {
         'preparo=$preparo';
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(idUser) {
     return {
+      "id_usuario": idUser,
       "id_receitas": id,
       "titulo_receitas": tituloReceitas,
       "descricao": descricao,
@@ -133,14 +135,14 @@ class Receita {
 }
 
 void criaReceita(
-    tituloReceitas, descricao, id, idEmpresa, requisitos, preparo) async {
+    tituloReceitas, descricao, id, idUsuario, requisitos, preparo) async {
   Receita novaReceita = Receita(
       tituloReceitas: tituloReceitas,
       descricao: descricao,
       id: 'id',
       requisitos: requisitos,
       preparo: preparo);
-  String jsonReceita = jsonEncode(novaReceita.toJson());
+  String jsonReceita = jsonEncode(novaReceita.toJson(idUsuario));
   http.Response response = await http.post(
     Uri.parse("http://localhost:8000/receita/cadastro"),
     headers: {'Content-Type': 'application/json'},
@@ -150,6 +152,7 @@ void criaReceita(
   if (response.statusCode == 200) {
     print('Receita registrada com sucesso');
   } else {
+    print('erro ao cadastrar receita!');
     print(response.statusCode);
   }
 }
@@ -284,7 +287,7 @@ class Curtida {
 Future<List<Curtida>> getLiked(id) async {
   List<Curtida> curtidas = [];
 
-  String url = 'http://localhost:8000/curtida/read/all/$id';
+  String url = "http://localhost:8000/curtida/all/read/$id";
 
   http.Response response = await http.get(
     Uri.parse(url),
@@ -301,6 +304,8 @@ Future<List<Curtida>> getLiked(id) async {
   } else {
     print(response.statusCode);
   }
+
+  print(curtidas);
 
   return curtidas;
 }

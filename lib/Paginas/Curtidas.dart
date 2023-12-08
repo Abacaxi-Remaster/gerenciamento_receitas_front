@@ -15,8 +15,6 @@ class _LikePreviewState extends State<LikePreview> {
     var appState = context.watch<MyAppState>();
 
 //teste
-    //falta backend: (requisição getLiked(id))
-
     return FutureBuilder<List<Curtida>>(
       future: getLiked(appState.logged.id),
       builder: (context, snapshot) {

@@ -1,3 +1,11 @@
+Erros Atuais:
+    -> retorno de http://localhost:8000/curtida/all/read/$id:
+        -> atual: manda para o front o id da receita e do usuario
+        -> preciso: manda para o front os dados de cada receita curtida pelo usuário especificado
+
+
+
+
 _________________________________________________________________________________________________________________________________________________________________
 Falta para acabar:
     -> lista de curtidas do usuário                                     Luisinho / Eu                  
@@ -39,3 +47,5 @@ Testar:
     -> retorna a avaliação do usuário '/avaliacao/usuario/read'
 
 
+
+==================================
