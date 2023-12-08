@@ -202,13 +202,13 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.update),
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Criar Receita'),
+                    title: Text('Atuilizar Receita'),
                     actions: [
                       TextButton(
                         child: Text('Cancelar'),

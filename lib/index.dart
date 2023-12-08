@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -129,7 +130,7 @@ Future<int> recuperarSenha(id, nome, email, senha) async {
 class Receita {
   String tituloReceitas;
   String descricao;
-  String id;
+  String id = '0';
   String requisitos;
   String preparo;
 
@@ -141,11 +142,10 @@ class Receita {
       required this.preparo});
 
   factory Receita.fromJson(Map<String, dynamic> json) {
-    print(json);
     return Receita(
-      tituloReceitas: json['titulo_receitas'],
+      tituloReceitas: json['titulo'],
       descricao: json['descricao'],
-      id: json['id'],
+      id: json['id_receitas'].toString(),
       requisitos: json['requisitos'],
       preparo: json['preparo'],
     );
@@ -163,7 +163,8 @@ class Receita {
 
   Map<String, dynamic> toJson() {
     return {
-      "titulo_receita": tituloReceitas,
+      "id_receitas": id,
+      "titulo_receitas": tituloReceitas,
       "descricao": descricao,
       "requisitos": requisitos,
       "preparo": preparo
@@ -181,7 +182,7 @@ void criaReceita(
       preparo: preparo);
   String jsonReceita = jsonEncode(novaReceita.toJson());
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/receitas/cadastro"),
+    Uri.parse("http://localhost:8000/receita/cadastro"),
     headers: {'Content-Type': 'application/json'},
     body: jsonReceita,
   );
@@ -193,11 +194,13 @@ void criaReceita(
   }
 }
 
+//uri: /receita/update
+
 Future<List<Receita>> listaReceitas() async {
   List<Receita> receitas = [];
 
-  http.Response response = await http.get(
-    Uri.parse('http://localhost:8000/receitas'),
+  http.Response response = await http.post(
+    Uri.parse('http://localhost:8000/receita/read/all'),
     headers: {'Content-Type': 'application/json'},
   );
 
@@ -212,11 +215,17 @@ Future<List<Receita>> listaReceitas() async {
 }
 
 void deletaReceita(idReceita) async {
-  Map<String, dynamic> receita = {"id_receita": idReceita};
+  Receita receita = Receita(
+      tituloReceitas: '',
+      descricao: '',
+      id: idReceita,
+      requisitos: '',
+      preparo: '');
+  //Map<String, dynamic> receita = {"id_receita": idReceita};
   String json = jsonEncode(receita);
 
   http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/receitas/deleta"),
+    Uri.parse("http://localhost:8000/receita/delete"),
     headers: {'Content-Type': 'application/json'},
     body: json,
   );
@@ -310,4 +319,97 @@ class Curtida {
       json['id'],
     );
   }
+}
+
+Future<List<Curtida>> getLiked(id) async {
+  List<Curtida> curtidas = [];
+
+  String url = 'http://localhost:8000/curtidas/$id';
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    curtidas =
+//rever -------------------------------------------------------------------------------------
+        List<Curtida>.from(decodedData.map((data) => Curtida.fromJson(data)));
+  } else {
+    print(response.statusCode);
+  }
+
+  return curtidas;
+}
+
+class Comentario {
+  String user_id;
+  String id;
+
+  Comentario(this.user_id, this.id);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': user_id,
+      'id': id,
+    };
+  }
+
+  static Comentario fromJson(Map<String, dynamic> json) {
+    return Comentario(
+      json['user_id'],
+      json['id'],
+    );
+  }
+}
+
+class Pesquisa {
+  String string;
+  String nota;
+
+  Pesquisa(this.string, this.nota);
+
+  Map<String, dynamic> toJson() {
+    return {
+      'string': string,
+      'nota': nota,
+    };
+  }
+
+  static Pesquisa fromJson(Map<String, dynamic> json) {
+    return Pesquisa(
+      json['string'],
+      json['nota'],
+    );
+  }
+}
+
+Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
+  print('entrou');
+  String pesquisaString;
+  if (texto != null) {
+    pesquisaString = texto;
+  } else {
+    pesquisaString = ' ';
+  }
+
+  Pesquisa pesquisa = Pesquisa(pesquisaString, filtro);
+  List<Receita> sugestoes = [];
+  String url = "http://localhost:8000/filtro/read";
+  String jsonSearch = jsonEncode(pesquisa.toJson());
+
+  http.Response response = await http.post(Uri.parse(url),
+      headers: {'Content-Type': 'application/json'}, body: jsonSearch);
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    sugestoes = decodedData.map((data) => Receita.fromJson(data)).toList();
+  } else {
+    print(response.statusCode);
+  }
+
+  return sugestoes;
 }
