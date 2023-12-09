@@ -312,7 +312,25 @@ Future<List<Curtida>> getLiked(id) async {
 
 Future<bool> likedOrNot(idUser, idReceita) async {
   print("entrou  em likedOrNot");
-  return false;
+  bool liked = false;
+
+  String url = "http://localhost:8000/curtida/read/$idUser/$idReceita";
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> decodedData = jsonDecode(response.body);
+    print(decodedData);
+    liked = true;
+  } else if (response.statusCode == 204) {
+    liked = false;
+  } else {
+    print(response.statusCode);
+  }
+  return liked;
 }
 
 void toggleLike(idUsuario, idReceita) async {
@@ -346,15 +364,15 @@ class Comentario {
 
   Map<String, dynamic> toJson() {
     return {
-      'user_id': user_id,
+      'id_usuario': user_id,
       'texto': texto,
-      'idReceita': idReceita,
+      'id_receitas': idReceita,
     };
   }
 
   static Comentario fromJson(Map<String, dynamic> json) {
     return Comentario(
-      json['user_id'],
+      json['id_usuario'],
       json['id'],
       json['texto'],
       json['idReceita'],
@@ -388,9 +406,11 @@ void avaliar(rating, userId, recipeId) async {
 
 void comentar(texto, userId, recipeId) async {
   //guardar um novo comentário do usuário em uma receita
-  Comentario newComment = Comentario(userId, '0', texto, recipeId);
+  print('object');
+  Comentario newComment = Comentario(userId, '0', texto, recipeId.toString());
   String json = jsonEncode(newComment.toJson());
-  String url = "";
+  print(json);
+  String url = "http://localhost:8000/comentario/cadastro";
 
   http.Response response = await http.post(
     Uri.parse(url),
@@ -398,7 +418,7 @@ void comentar(texto, userId, recipeId) async {
     body: json,
   );
   if (response.statusCode == 200) {
-    print('Erro ao adicionar comentário');
+    print('Sucesso ao adicionar comentário');
   } else {
     print(response.statusCode);
     print(response.body);
@@ -449,7 +469,7 @@ Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
   } else {
     print(response.statusCode);
   }
-
+  print(sugestoes);
   return sugestoes;
 }
 

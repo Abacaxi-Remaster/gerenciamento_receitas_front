@@ -46,7 +46,6 @@ class _DetalheReceitaState extends State<DetalheReceita> {
           LikeIcon = Icon(Icons.favorite);
         });
       }
-      toggleLike(appState.logged.id, appState.receitaAtual.id);
     }
 
     int rating = 0;
@@ -109,9 +108,7 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                                 maxLines: null,
                                 decoration: InputDecoration(
                                     labelText: 'Insira seu Comentário'),
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
+                                onChanged: (value) {},
                               ),
                             ),
                             Row(
@@ -141,7 +138,8 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                                     IconButton(
                                         onPressed: () {
                                           setState(() {
-                                            likeAndDislike();
+                                            toggleLike(appState.logged.id,
+                                                appState.receitaAtual.id);
                                           });
                                         },
                                         icon: LikeIcon),
@@ -150,8 +148,13 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () async {
-                                    comentar(userController, appState.logged.id,
-                                        appState.receitaAtual.id);
+                                    comentar(
+                                        userController.text,
+                                        appState.logged.id.toString(),
+                                        appState.receitaAtual.id.toString());
+                                    setState(() {
+                                      userController.clear();
+                                    });
                                   },
                                   child: Text('Comentar'),
                                 ),

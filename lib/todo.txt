@@ -2,53 +2,41 @@ Erros Atuais:
     -> retorno de http://localhost:8000/curtida/all/read/$id:
         -> atual: manda para o front o id da receita e do usuario
         -> preciso: manda para o front os dados de cada receita curtida pelo usuário especificado
-    -> Todas as inicializações de Detalhe receitas tem que ser em future builder
     -> Alterar a Avaliação (duplicate entry)
-    
 
-
-
-
-_________________________________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________________
 Falta para acabar:
     -> lista de curtidas do usuário                                     Luisinho / Eu                  
     -> lista de receitas criadas pelo usuário                           Luisinho / Eu 
     -> Adicionar Funcionalidade para a pagina de editar receita         KutKut        
-    -> Armazenar Comentário / avaliação                                 Luisinho / Eu
-    -> atualizar numero de likes
-    -> iniciar o Icone de like
-    -> iniciar avaliação (0 se nao avaliou, valor atual se ja avaliou)
+    -> atualizar numero de likes                                        Luisinho / Eu
     -> exibir comentários já existentes                                 Luisinho / Eu
     -> colocar a avaliação na barra de sugestões!                       Luisinho / Eu
+    
     -> Recuperar Senha                                                  KutKut / Luisinho
 
     -> Adicionar receitas de Demonstração                               Qualquer Pessoa
+    -> Atualizar o Trello
     -> Fazer a Apresentação                                             Qualquer Pessoa
 _________________________________________________________________________________________________________________________________________________________________
 
 Pedidos para o luisinho: 
+
+Antigas
     -> alterar "filtro/read" para o back mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
     -> back recebe id de usuário e manda para o front a lista de receitas curtidas por ele
     -> back recebe id de usuário e manda para o front a lista de receitas criadas por ele
-    -> back recebe id de usuario e id de receita e envia o valor de avaliação desse usuário para essa receita para o front
-    -> back recebe id de usuario, id de receita e um comentario para ser armazenado
-    
-KutKut:
-    -> Recuperar Senha
-    -> ver se o editar receita funciona!
+Novas:
+    -> back recebe um idReceitas e retorna o número de likes dela
+    -> back recebe um idReceitas e retorna uma lista com todos os comentários associados a ela 
+Erros Atuais:
+    -> retorno de http://localhost:8000/curtida/all/read/$id:
+        -> atual: manda para o front o id da receita e do usuario
+        -> preciso: manda para o front os dados de cada receita curtida pelo usuário especificado
+    -> erro ao Alterar a Avaliação (duplicate entry)
+
 
 Pedidos Luisinho KutKut:
     -> back recebe email e retorna nome de usuário e id do usuário
     -> back recebe id de usuario e nova senha e atualiza o banco de dados
 
-
-
-Testar:
-    -> inserir e enviar avaliação tava recebendo como idreceita, virou idreceitaS
-    -> curtir (retorna lista de curtidas do usuario)
-    -> retorna lista de criadas
-    -> retorna a avaliação do usuário '/avaliacao/usuario/read'
-
-
-
-==================================
