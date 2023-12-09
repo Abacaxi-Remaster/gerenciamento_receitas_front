@@ -265,7 +265,7 @@ class _ReceitasState extends State<Receitas> {
     var appState = context.watch<MyAppState>();
     return Consumer<MyAppState>(builder: (context, appState, _) {
       return FutureBuilder<List<Receita>>(
-        future: listaReceitas(),
+        future: listaCriadas(appState.logged.id),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();

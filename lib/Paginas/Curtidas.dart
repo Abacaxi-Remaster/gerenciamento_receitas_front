@@ -15,7 +15,7 @@ class _LikePreviewState extends State<LikePreview> {
     var appState = context.watch<MyAppState>();
 
 //teste
-    return FutureBuilder<List<Curtida>>(
+    return FutureBuilder<List<Receita>>(
       future: getLiked(appState.logged.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -23,7 +23,7 @@ class _LikePreviewState extends State<LikePreview> {
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
-          List<Curtida>? curtidas = snapshot.data;
+          List<Receita>? curtidas = snapshot.data;
 
           return ListView(
             children: [
@@ -32,10 +32,18 @@ class _LikePreviewState extends State<LikePreview> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: ListTile(
                     leading: Icon(Icons.favorite),
-                    title: Text('${curtida.Nome}'),
+                    title: Text('${curtida.tituloReceitas}'),
                     trailing: IconButton(
                         onPressed: () {
-                          setState(() {/*placeholder*/});
+                          setState(() {
+                            appState.receitaAtual = curtida;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetalheReceita(),
+                              ),
+                            );
+                          });
                         },
                         icon: Icon(Icons.arrow_right)),
                   ),

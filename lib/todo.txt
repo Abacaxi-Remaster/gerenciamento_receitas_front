@@ -1,16 +1,10 @@
 Erros Atuais:
-    -> retorno de http://localhost:8000/curtida/all/read/$id:
-        -> atual: manda para o front o id da receita e do usuario
-        -> preciso: manda para o front os dados de cada receita curtida pelo usuário especificado
     -> Alterar a Avaliação (duplicate entry)
+    -> lista de comentários: preciso do nome do usuário que comentou ao invés do ID
 
 _______________________________________________________________________________________________________________________________________________
-Falta para acabar:
-    -> lista de curtidas do usuário                                     Luisinho / Eu                  
-    -> lista de receitas criadas pelo usuário                           Luisinho / Eu 
-    -> Adicionar Funcionalidade para a pagina de editar receita         KutKut        
-    -> atualizar numero de likes                                        Luisinho / Eu
-    -> exibir comentários já existentes                                 Luisinho / Eu
+Falta para acabar:                
+    -> Adicionar Funcionalidade para a pagina de editar receita         KutKut       
     -> colocar a avaliação na barra de sugestões!                       Luisinho / Eu
     
     -> Recuperar Senha                                                  KutKut / Luisinho
@@ -24,19 +18,12 @@ Pedidos para o luisinho:
 
 Antigas
     -> alterar "filtro/read" para o back mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
-    -> back recebe id de usuário e manda para o front a lista de receitas curtidas por ele
-    -> back recebe id de usuário e manda para o front a lista de receitas criadas por ele
 Novas:
-    -> back recebe um idReceitas e retorna o número de likes dela
-    -> back recebe um idReceitas e retorna uma lista com todos os comentários associados a ela 
+    -> O que a parte do kutkut precisar
 Erros Atuais:
-    -> retorno de http://localhost:8000/curtida/all/read/$id:
-        -> atual: manda para o front o id da receita e do usuario
-        -> preciso: manda para o front os dados de cada receita curtida pelo usuário especificado
     -> erro ao Alterar a Avaliação (duplicate entry)
+    -> lista de comentários: preciso do nome do usuário que comentou ao invés do ID
 
 
-Pedidos Luisinho KutKut:
-    -> back recebe email e retorna nome de usuário e id do usuário
-    -> back recebe id de usuario e nova senha e atualiza o banco de dados
+
 

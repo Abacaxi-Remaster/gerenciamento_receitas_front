@@ -177,6 +177,27 @@ Future<List<Receita>> listaReceitas() async {
   return receitas;
 }
 
+Future<List<Receita>> listaCriadas(id) async {
+  List<Receita> criadas = [];
+
+  String url = "http://localhost:8000/receita/usuario/read/$id";
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    criadas =
+        List<Receita>.from(decodedData.map((data) => Receita.fromJson(data)));
+  } else {
+    print(response.statusCode);
+  }
+
+  return criadas;
+}
+
 void deletaReceita(idReceita) async {
   Receita receita = Receita(
       tituloReceitas: '',
@@ -284,8 +305,8 @@ class Curtida {
   }
 }
 
-Future<List<Curtida>> getLiked(id) async {
-  List<Curtida> curtidas = [];
+Future<List<Receita>> getLiked(id) async {
+  List<Receita> curtidas = [];
 
   String url = "http://localhost:8000/curtida/all/read/$id";
 
@@ -294,24 +315,18 @@ Future<List<Curtida>> getLiked(id) async {
     headers: {'Content-Type': 'application/json'},
   );
 
-  print(response.body);
-
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
-    print(response.statusCode);
     curtidas =
-        List<Curtida>.from(decodedData.map((data) => Curtida.fromJson(data)));
+        List<Receita>.from(decodedData.map((data) => Receita.fromJson(data)));
   } else {
     print(response.statusCode);
   }
-
-  print(curtidas);
 
   return curtidas;
 }
 
 Future<bool> likedOrNot(idUser, idReceita) async {
-  print("entrou  em likedOrNot");
   bool liked = false;
 
   String url = "http://localhost:8000/curtida/read/$idUser/$idReceita";
@@ -322,8 +337,6 @@ Future<bool> likedOrNot(idUser, idReceita) async {
   );
 
   if (response.statusCode == 200) {
-    Map<String, dynamic> decodedData = jsonDecode(response.body);
-    print(decodedData);
     liked = true;
   } else if (response.statusCode == 204) {
     liked = false;
@@ -334,7 +347,6 @@ Future<bool> likedOrNot(idUser, idReceita) async {
 }
 
 void toggleLike(idUsuario, idReceita) async {
-  print('entrou em curtida');
   Map<String, dynamic> receita = {
     "id_receitas": idReceita,
     "id_usuario": idUsuario
@@ -347,11 +359,30 @@ void toggleLike(idUsuario, idReceita) async {
     body: json,
   );
   if (response.statusCode == 200) {
-    print('curtida registrada com sucesso');
   } else {
     print(response.statusCode);
     print(response.body);
   }
+}
+
+Future<int> countLikes(idReceita) async {
+  int count = 0;
+
+  String url = "http://localhost:8000/curtida/count/$idReceita";
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> decodedData = jsonDecode(response.body);
+    print(decodedData);
+    count = decodedData['COUNT(*)'];
+  } else {
+    print(response.statusCode);
+  }
+
+  return count;
 }
 
 class Comentario {
@@ -396,7 +427,6 @@ void avaliar(rating, userId, recipeId) async {
     body: json,
   );
   if (response.statusCode == 200) {
-    print('avaliação registrada com sucesso');
   } else if (response.statusCode == 204) {
     print('Erro ao alterar a avaliação');
     print(response.statusCode);
@@ -405,11 +435,8 @@ void avaliar(rating, userId, recipeId) async {
 }
 
 void comentar(texto, userId, recipeId) async {
-  //guardar um novo comentário do usuário em uma receita
-  print('object');
   Comentario newComment = Comentario(userId, '0', texto, recipeId.toString());
   String json = jsonEncode(newComment.toJson());
-  print(json);
   String url = "http://localhost:8000/comentario/cadastro";
 
   http.Response response = await http.post(
@@ -447,7 +474,7 @@ class Pesquisa {
 }
 
 Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
-  print('entrou em pesquisaComFiltro');
+  //print('entrou em pesquisaComFiltro');
   String pesquisaString;
   if (texto != null) {
     pesquisaString = texto;
@@ -469,7 +496,7 @@ Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
   } else {
     print(response.statusCode);
   }
-  print(sugestoes);
+  //print(sugestoes);
   return sugestoes;
 }
 
@@ -498,15 +525,34 @@ Future<double> AvaliacaoRead(id_receitas, id_usuario) async {
   return avaliacao;
 }
 
-Future<List<Map<String, String>>> fetchComments() async {
-  // Your logic to fetch data goes here
-  // For example, you can use http package to make an HTTP request
-  // and parse the response to get a List<Map<String, String>>
-  // Replace the following line with your actual data fetching logic
-  // Simulating a delay for demonstration purposes
-  return [
+Future<List<Map<String, String>>> fetchComments(id) async {
+  List<Map<String, String>> comentarios = [];
+
+  String url = "http://localhost:8000/comentario/read/$id";
+
+  http.Response response = await http.get(
+    Uri.parse(url),
+    headers: {'Content-Type': 'application/json'},
+  );
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    comentarios = decodedData.map((map) {
+      return {
+        'name': map['id_usuario'].toString(),
+        'message': map['texto'].toString(),
+      };
+    }).toList();
+    //print(comentarios[0]['name']);
+  } else {
+    print(response.statusCode);
+  }
+
+  return comentarios;
+
+  /*[
     {'name': 'User1', 'message': 'Comment 1'},
     {'name': 'User2', 'message': 'Comment 2'},
     // Add more data as needed
-  ];
+  ]*/
 }

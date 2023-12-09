@@ -25,13 +25,6 @@ class _DetalheReceitaState extends State<DetalheReceita> {
   late Future<double> initRating;
 
   @override
-  void initState() {
-    super.initState();
-    likes = 187;
-    dataFuture = fetchComments();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     Receita receita = appState.receitaAtual;
@@ -75,6 +68,7 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                   future: Future.wait([
                     likedOrNot(appState.logged.id, appState.receitaAtual.id),
                     AvaliacaoRead(appState.receitaAtual.id, appState.logged.id),
+                    countLikes(appState.receitaAtual.id),
                   ]),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -84,12 +78,14 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                     } else {
                       final List<dynamic> data = snapshot.data!;
                       appState.liked = data[0];
-                      print(appState.liked);
+                      //print(appState.liked);
                       if (appState.liked) {
                         LikeIcon = Icon(Icons.favorite);
                       } else {
                         LikeIcon = Icon(Icons.favorite_outline);
                       }
+                      likes = data[2];
+
                       return Form(
                         key: _formKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -143,7 +139,7 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                                           });
                                         },
                                         icon: LikeIcon),
-                                    Text(appState.numerolike.toString())
+                                    Text(likes.toString())
                                   ],
                                 ),
                                 ElevatedButton(
@@ -167,28 +163,36 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                   },
                 ),
                 FutureBuilder<List<Map<String, String>>>(
-                  future: dataFuture,
+                  future: fetchComments(appState.receitaAtual.id),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       // Display a loading indicator while waiting for data
+                      print('carregando');
                       return CircularProgressIndicator();
                     } else if (snapshot.hasError) {
                       // Display an error message if an error occurs
                       return Text('Error: ${snapshot.error}');
                     } else {
                       // Display your list of comments once the data is available
+                      List<Map<String, String>> data = snapshot.data!;
                       return Column(
                         children: [
-                          for (var i = 0; i < snapshot.data!.length; i++)
+                          for (var i = 0; i < data.length; i++)
                             Padding(
                               padding:
                                   const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
                               child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                tileColor: Color.fromRGBO(245, 203, 38, 0.306),
                                 title: Text(
-                                  snapshot.data![i]['name']!,
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  data[i]['name']!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                subtitle: Text(snapshot.data![i]['message']!),
+                                subtitle: Text(data[i]['message']!),
                               ),
                             ),
                         ],

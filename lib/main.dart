@@ -166,7 +166,6 @@ class MyAppState extends ChangeNotifier {
 
   var like = Icon(Icons.favorite_outline);
   var liked = false;
-  var numerolike = 187;
 
   testeToggleLogado() {
     logado = true;
