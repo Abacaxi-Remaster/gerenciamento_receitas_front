@@ -83,9 +83,11 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    if (confirmarNovaSenhaController.text == passwordController.text) {
+                    if (confirmarNovaSenhaController.text ==
+                        passwordController.text) {
                       if (_formKey.currentState!.validate()) {
                         int resposta = await atualizarSenha(
+                          nomeController.text,
                           emailController.text,
                           passwordController.text,
                           confirmarNovaSenhaController.text,
@@ -94,7 +96,10 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
                         if (resposta == 200) {
                           appState.setPage(LoginPage());
                         } else if (resposta == 400) {
-                          appState.erro('Erro no cadastro - Senhas Diferentes!');
+                          appState
+                              .erro('Erro no cadastro - Senhas Diferentes!');
+                        } else if (resposta == 600) {
+                          appState.erro('Dados Incorretos!');
                         } else {
                           appState.erro('Erro na atualização de senha');
                         }

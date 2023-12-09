@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -106,14 +108,21 @@ Future<int> emailUsuario(email) async {
   return response.statusCode;
 }
 
-Future<int> atualizarSenha(String email, String novaSenha, String confirmarSenha) async {
+Future<int> atualizarSenha(String testeNome, String email, String novaSenha,
+    String confirmarSenha) async {
   if (novaSenha != confirmarSenha) {
     // Senhas não coincidem
     return 400;
   }
 
-  RegisterUser newUser = RegisterUser(0, '', email, novaSenha);
-  String jsonUser = jsonEncode(newUser.updateToJson());
+  String nome = await (getNome(email));
+  if (nome != testeNome) {
+    print('nomes diferentes');
+    return 600;
+  }
+
+  Map<String, dynamic> newUser = {'email': email, 'senha': novaSenha};
+  String jsonUser = jsonEncode(newUser);
 
   try {
     http.Response response = await http.post(
@@ -133,6 +142,12 @@ Future<int> atualizarSenha(String email, String novaSenha, String confirmarSenha
     print('Erro durante a chamada da API: $e');
     return 500; // Código de erro genérico
   }
+}
+
+Future<String> getNome(email) async {
+  String nome = '';
+
+  return nome;
 }
 
 //Receitas/Inscritos:

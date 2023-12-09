@@ -19,7 +19,9 @@ Pedidos para o luisinho:
 Antigas
     -> alterar "filtro/read" para o back mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
 Parte do kutkut:
-    -> 
+    -> Manda um email para o back e retorna o nome de usuário associado à ele para o front
+    -> back recebe um email e uma senha e atualiza a senha dessa conta
+    -> ter certeza de que todo email é unico no bd!
 Erros Atuais:
     -> erro ao Alterar a Avaliação (duplicate entry)
     -> lista de comentários: preciso do nome do usuário que comentou ao invés do ID
