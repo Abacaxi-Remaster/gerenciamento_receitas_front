@@ -18,8 +18,8 @@ Pedidos para o luisinho:
 
 Antigas
     -> alterar "filtro/read" para o back mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
-Novas:
-    -> O que a parte do kutkut precisar
+Parte do kutkut:
+    -> 
 Erros Atuais:
     -> erro ao Alterar a Avaliação (duplicate entry)
     -> lista de comentários: preciso do nome do usuário que comentou ao invés do ID
