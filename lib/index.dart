@@ -87,6 +87,54 @@ Future<int> update(id, nome, email, senha) async {
   return response.statusCode;
 }
 
+Future<int> emailUsuario(email) async {
+  String jsonUser = jsonEncode(email);
+
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/emailUsuario"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonUser,
+  );
+
+  if (response.statusCode == 200) {
+    print('Usuario Email');
+  } else {
+    if (response.statusCode == 400) {
+      print('Email nao existe');
+    }
+  }
+  return response.statusCode;
+}
+
+Future<int> atualizarSenha(String email, String novaSenha, String confirmarSenha) async {
+  if (novaSenha != confirmarSenha) {
+    // Senhas não coincidem
+    return 400;
+  }
+
+  RegisterUser newUser = RegisterUser(0, '', email, novaSenha);
+  String jsonUser = jsonEncode(newUser.updateToJson());
+
+  try {
+    http.Response response = await http.post(
+      Uri.parse("http://localhost:8000/atualizar_senha"),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonUser,
+    );
+
+    if (response.statusCode == 200) {
+      print('Senha atualizada com sucesso');
+    } else {
+      print('Erro na atualização da senha');
+    }
+
+    return response.statusCode;
+  } catch (e) {
+    print('Erro durante a chamada da API: $e');
+    return 500; // Código de erro genérico
+  }
+}
+
 //Receitas/Inscritos:
 class Receita {
   String tituloReceitas;

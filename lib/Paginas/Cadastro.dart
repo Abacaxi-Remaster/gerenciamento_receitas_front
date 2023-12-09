@@ -133,7 +133,6 @@ class _AttCadastroPageState extends State<AttCadastroPage> {
   final passwordController = TextEditingController();
   final oldpasswordController = TextEditingController();
   final nomeController = TextEditingController();
-  final ultimoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
