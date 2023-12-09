@@ -22,19 +22,12 @@ class _DetalheReceitaState extends State<DetalheReceita> {
   late int likes;
   late Future<bool> likeOrNot;
   late Icon LikeIcon; // = Icon(Icons.favorite_outline)
-  late double initRating;
+  late Future<double> initRating;
 
   @override
   void initState() {
     super.initState();
-    var appState = context.read<MyAppState>();
-    //get user info:
     likes = 187;
-    likeOrNot = likedOrNot(appState.logged.id, appState.receitaAtual.id);
-    LikeIcon = Icon(Icons.favorite_outline);
-    initRating = 3;
-
-    //get existing comments:
     dataFuture = fetchComments();
   }
 
@@ -46,12 +39,10 @@ class _DetalheReceitaState extends State<DetalheReceita> {
     likeAndDislike() {
       if (appState.liked) {
         setState(() {
-          appState.liked = false;
           LikeIcon = Icon(Icons.favorite_outline);
         });
       } else {
         setState(() {
-          appState.liked = true;
           LikeIcon = Icon(Icons.favorite);
         });
       }
@@ -81,73 +72,96 @@ class _DetalheReceitaState extends State<DetalheReceita> {
                     style: TextStyle(fontSize: 20)),
                 Text('Modo de Preparo: ${receita.preparo}',
                     style: TextStyle(fontSize: 20)),
-                Form(
-                  key: _formKey,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    children: [
-                      //Text('Teste: Comentários'),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                        child: TextFormField(
-                          controller: userController,
-                          maxLines: null,
-                          decoration: InputDecoration(
-                              labelText: 'Insira seu Comentário'),
-                          onChanged: (value) {
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RatingBar(
-                            initialRating: initRating,
-                            direction: Axis.horizontal,
-                            allowHalfRating: false,
-                            itemCount: 5,
-                            itemSize: 25,
-                            ratingWidget: RatingWidget(
-                              full: Icon(Icons.star),
-                              half: Icon(Icons.star_half_outlined),
-                              empty: Icon(Icons.star_border),
+                FutureBuilder<List<dynamic>>(
+                  future: Future.wait([
+                    likedOrNot(appState.logged.id, appState.receitaAtual.id),
+                    AvaliacaoRead(appState.receitaAtual.id, appState.logged.id),
+                  ]),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      final List<dynamic> data = snapshot.data!;
+                      appState.liked = data[0];
+                      print(appState.liked);
+                      if (appState.liked) {
+                        LikeIcon = Icon(Icons.favorite);
+                      } else {
+                        LikeIcon = Icon(Icons.favorite_outline);
+                      }
+                      return Form(
+                        key: _formKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: Column(
+                          children: [
+                            //Text('Teste: Comentários'),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
                             ),
-                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                            onRatingUpdate: (rating) {
-                              //print(rating);
-                              avaliar(rating, appState.logged.id,
-                                  appState.receitaAtual.id);
-                            },
-                          ),
-                          Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      likeAndDislike();
-                                    });
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 0),
+                              child: TextFormField(
+                                controller: userController,
+                                maxLines: null,
+                                decoration: InputDecoration(
+                                    labelText: 'Insira seu Comentário'),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                RatingBar(
+                                  initialRating: data[1], //initRating,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: false,
+                                  itemCount: 5,
+                                  itemSize: 25,
+                                  ratingWidget: RatingWidget(
+                                    full: Icon(Icons.star),
+                                    half: Icon(Icons.star_half_outlined),
+                                    empty: Icon(Icons.star_border),
+                                  ),
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  onRatingUpdate: (rating) {
+                                    //print(rating);
+                                    avaliar(rating, appState.logged.id,
+                                        appState.receitaAtual.id);
                                   },
-                                  icon: LikeIcon),
-                              Text(appState.numerolike.toString())
-                            ],
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              comentar(userController, appState.logged.id,
-                                  appState.receitaAtual.id);
-                            },
-                            child: Text('Comentar'),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            likeAndDislike();
+                                          });
+                                        },
+                                        icon: LikeIcon),
+                                    Text(appState.numerolike.toString())
+                                  ],
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    comentar(userController, appState.logged.id,
+                                        appState.receitaAtual.id);
+                                  },
+                                  child: Text('Comentar'),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                  },
                 ),
                 FutureBuilder<List<Map<String, String>>>(
                   future: dataFuture,

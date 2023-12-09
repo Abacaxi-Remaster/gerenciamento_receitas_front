@@ -185,7 +185,7 @@ void deletaReceita(idReceita) async {
       requisitos: '',
       preparo: '');
   //Map<String, dynamic> receita = {"id_receita": idReceita};
-  String json = jsonEncode(receita);
+  String json = jsonEncode(receita.toJson(0));
 
   http.Response response = await http.post(
     Uri.parse("http://localhost:8000/receita/delete"),
@@ -365,12 +365,12 @@ class Comentario {
 void avaliar(rating, userId, recipeId) async {
   //alterar a avaliação do usuário
   Map<String, dynamic> like = {
-    'user_id': userId,
-    'idReceitas': recipeId,
-    'avaliacao': rating
+    'id_usuario': userId,
+    'id_receitas': recipeId,
+    'nota': rating
   };
   String json = jsonEncode(like);
-  String url = "";
+  String url = "http://localhost:8000/avaliacao/cadastro";
 
   http.Response response = await http.post(
     Uri.parse(url),
@@ -378,8 +378,9 @@ void avaliar(rating, userId, recipeId) async {
     body: json,
   );
   if (response.statusCode == 200) {
+    print('avaliação registrada com sucesso');
+  } else if (response.statusCode == 204) {
     print('Erro ao alterar a avaliação');
-  } else {
     print(response.statusCode);
     print(response.body);
   }
@@ -452,18 +453,26 @@ Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
   return sugestoes;
 }
 
-Future<double> AvaliacaoRead(idReceita) async {
+Future<double> AvaliacaoRead(id_receitas, id_usuario) async {
   double avaliacao = 0;
-  String url = "http://localhost:8000/avaliacao/read";
-  String jsonid = jsonEncode(idReceita);
+  Map<String, dynamic> data = {
+    'id_usuario': id_usuario,
+    'id_receitas': id_receitas,
+  };
+  String url = "http://localhost:8000/avaliacao/usuario/read";
+  String jsonid = jsonEncode(data);
 
   http.Response response = await http.post(Uri.parse(url),
       headers: {'Content-Type': 'application/json'}, body: jsonid);
 
   if (response.statusCode == 200) {
-    List<dynamic> decodedData = jsonDecode(response.body);
+    print(response.body);
+    Map<String, dynamic> decodedData = jsonDecode(response.body);
+    avaliacao = decodedData['nota'];
+  } else if (response.statusCode == 204) {
+    avaliacao = 0;
   } else {
-    print(response.statusCode);
+    print('AvalicaoRead: ${response.statusCode}');
   }
 
   return avaliacao;
