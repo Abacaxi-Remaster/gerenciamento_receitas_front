@@ -1,31 +1,12 @@
-Erros Atuais:
-    -> Alterar a Avaliação (duplicate entry)
-    -> lista de comentários: preciso do nome do usuário que comentou ao invés do ID
-
-_______________________________________________________________________________________________________________________________________________
-Falta para acabar:                
-    -> Adicionar Funcionalidade para a pagina de editar receita         KutKut       
-    -> colocar a avaliação na barra de sugestões!                       Luisinho / Eu
-    
-    -> Recuperar Senha                                                  KutKut / Luisinho
-
-    -> Adicionar receitas de Demonstração                               Qualquer Pessoa
-    -> Atualizar o Trello
-    -> Fazer a Apresentação                                             Qualquer Pessoa
+_________________________________________________________________________________________________________________________________________________________________
+Falta para acabar o front:                
+    -> colocar a avaliação na barra de sugestões! 
 _________________________________________________________________________________________________________________________________________________________________
 
-Pedidos para o luisinho: 
-
-Antigas
-    -> alterar "filtro/read" para o back mandar a avaliação de cada receita para o front junto da lista de receitas (filtro)
-Parte do kutkut:
-    -> Manda um email para o back e retorna o nome de usuário associado à ele para o front
-    -> back recebe um email e uma senha e atualiza a senha dessa conta
-    -> ter certeza de que todo email é unico no bd!
-Erros Atuais:
+O que falta para o back:
+    -> criar requisição que manda uma lista com todos os id e avaliação das receitas para o front
     -> erro ao Alterar a Avaliação (duplicate entry)
-    -> lista de comentários: preciso do nome do usuário que comentou ao invés do ID
 
-
-
-
+O que falta para a Apresentação:
+    -> selecionar receitas de exemplo para serem adicionadas
+    -> atualizar o Trello

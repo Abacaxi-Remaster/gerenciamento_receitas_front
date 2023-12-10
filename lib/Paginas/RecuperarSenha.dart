@@ -95,6 +95,7 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
 
                         if (resposta == 200) {
                           appState.setPage(LoginPage());
+                          appState.sucesso('Senha Atualiazda com sucesso!');
                         } else if (resposta == 400) {
                           appState
                               .erro('Erro no cadastro - Senhas Diferentes!');
@@ -110,6 +111,14 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
                   },
                   child: Text('Atualizar Senha'),
                 ),
+                TextButton(
+                  onPressed: () {
+                    appState.setPage(LoginPage());
+                  },
+                  child: Text(
+                    'voltar para o Login',
+                  ),
+                )
               ],
             ),
           ),

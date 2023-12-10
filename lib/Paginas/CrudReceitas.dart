@@ -141,12 +141,6 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
   final descricaoController = TextEditingController();
   final requisitosController = TextEditingController();
   final preparoController = TextEditingController();
-  String tituloReceitas = '';
-  String descricao = '';
-  int id = Random().nextInt(1000);
-
-  String requisitos = '';
-  String preparo = '';
 
   //TextInputFormatter _inputFormatter1 = FilteringTextInputFormatter.digitsOnly;         receber so numeros
 
@@ -161,6 +155,11 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     Receita receita = appState.receitaAtual;
+    String id = receita.id;
+    String tituloReceitas = receita.tituloReceitas;
+    String descricao = receita.descricao;
+    String requisitos = receita.requisitos;
+    String preparo = receita.preparo;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -230,15 +229,17 @@ class EditarReceitasCrudState extends State<CrudEditarReceitas> {
                         child: Text('Salvar'),
                         onPressed: () {
                           Navigator.of(context).pop();
-                          criaReceita(tituloReceitas, descricao, 0,
-                              appState.logged.id, requisitos, preparo);
-                          appState.adicionarReceita(Receita(
-                              tituloReceitas: tituloReceitas,
-                              descricao: descricao,
-                              id: '',
-                              requisitos: requisitos,
-                              preparo: preparo));
+                          updateReceita(
+                              tituloController.text,
+                              descricaoController.text,
+                              id,
+                              appState.logged.id,
+                              requisitosController.text,
+                              preparoController.text);
                           submitForm();
+                          setState(() {
+                            Navigator.of(context).pop();
+                          });
                         },
                       ),
                     ],

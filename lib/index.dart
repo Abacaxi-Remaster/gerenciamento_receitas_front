@@ -89,23 +89,22 @@ Future<int> update(id, nome, email, senha) async {
   return response.statusCode;
 }
 
-Future<int> emailUsuario(email) async {
-  String jsonUser = jsonEncode(email);
-
-  http.Response response = await http.post(
-    Uri.parse("http://localhost:8000/emailUsuario"),
+Future<String> getNome(email) async {
+  http.Response response = await http.get(
+    Uri.parse("http://localhost:8000/recuperarNome/$email"),
     headers: {'Content-Type': 'application/json'},
-    body: jsonUser,
   );
 
   if (response.statusCode == 200) {
-    print('Usuario Email');
+    print(response.body);
+    Map<String, dynamic> decodedData = jsonDecode(response.body);
+    return decodedData['nome'];
   } else {
     if (response.statusCode == 400) {
       print('Email nao existe');
     }
   }
-  return response.statusCode;
+  return response.statusCode.toString();
 }
 
 Future<int> atualizarSenha(String testeNome, String email, String novaSenha,
@@ -116,6 +115,8 @@ Future<int> atualizarSenha(String testeNome, String email, String novaSenha,
   }
 
   String nome = await (getNome(email));
+  print('nome: $nome');
+  print('teste: $testeNome');
   if (nome != testeNome) {
     print('nomes diferentes');
     return 600;
@@ -126,7 +127,7 @@ Future<int> atualizarSenha(String testeNome, String email, String novaSenha,
 
   try {
     http.Response response = await http.post(
-      Uri.parse("http://localhost:8000/atualizar_senha"),
+      Uri.parse("http://localhost:8000/updateSenha"),
       headers: {'Content-Type': 'application/json'},
       body: jsonUser,
     );
@@ -142,12 +143,6 @@ Future<int> atualizarSenha(String testeNome, String email, String novaSenha,
     print('Erro durante a chamada da API: $e');
     return 500; // Código de erro genérico
   }
-}
-
-Future<String> getNome(email) async {
-  String nome = '';
-
-  return nome;
 }
 
 //Receitas/Inscritos:
@@ -281,6 +276,29 @@ void deletaReceita(idReceita) async {
   } else {
     print(response.statusCode);
     print(response.body);
+  }
+}
+
+void updateReceita(
+    tituloReceitas, descricao, id, idUsuario, requisitos, preparo) async {
+  Receita novaReceita = Receita(
+      tituloReceitas: tituloReceitas,
+      descricao: descricao,
+      id: id,
+      requisitos: requisitos,
+      preparo: preparo);
+  String jsonReceita = jsonEncode(novaReceita.toJson(idUsuario));
+  http.Response response = await http.post(
+    Uri.parse("http://localhost:8000/receita/update"),
+    headers: {'Content-Type': 'application/json'},
+    body: jsonReceita,
+  );
+  print(jsonReceita);
+  if (response.statusCode == 200) {
+    print('Receita atualizada com sucesso');
+  } else {
+    print('erro ao cadastrar receita!');
+    print(response.statusCode);
   }
 }
 
@@ -576,7 +594,6 @@ Future<double> AvaliacaoRead(id_receitas, id_usuario) async {
       headers: {'Content-Type': 'application/json'}, body: jsonid);
 
   if (response.statusCode == 200) {
-    print(response.body);
     Map<String, dynamic> decodedData = jsonDecode(response.body);
     avaliacao = decodedData['nota'];
   } else if (response.statusCode == 204) {
@@ -600,9 +617,10 @@ Future<List<Map<String, String>>> fetchComments(id) async {
 
   if (response.statusCode == 200) {
     List<dynamic> decodedData = jsonDecode(response.body);
+    print(decodedData);
     comentarios = decodedData.map((map) {
       return {
-        'name': map['id_usuario'].toString(),
+        'name': map['nome'].toString(),
         'message': map['texto'].toString(),
       };
     }).toList();
