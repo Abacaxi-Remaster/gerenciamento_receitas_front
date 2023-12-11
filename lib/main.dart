@@ -166,6 +166,12 @@ class MyAppState extends ChangeNotifier {
 
   var like = Icon(Icons.favorite_outline);
   var liked = false;
+  var notatual = 0;
+  List<Map<String, dynamic>> notas = [];
+  getNotas() {}
+  getaval() {
+    //notatual = notas[][''];
+  }
 
   testeToggleLogado() {
     logado = true;

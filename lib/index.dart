@@ -581,6 +581,30 @@ Future<List<Receita>> pesquisaComFiltro(texto, filtro) async {
   return sugestoes;
 }
 
+Future<List<Map<String, dynamic>>> allAval() async {
+  List<Map<String, dynamic>> minhaLista = [];
+  String url = "http://localhost:8000/avaliacao/all/read";
+
+  http.Response response = await http
+      .get(Uri.parse(url), headers: {'Content-Type': 'application/json'});
+
+  if (response.statusCode == 200) {
+    List<dynamic> decodedData = jsonDecode(response.body);
+    //print(decodedData);
+    minhaLista = decodedData.map((map) {
+      return {
+        'id': map['id_receitas'].toString(),
+        'nota': map['AVG(nota)'].toString(),
+      };
+    }).toList();
+  } else {
+    print('erro em pegar avaliação');
+  }
+
+  print(minhaLista);
+  return minhaLista;
+}
+
 Future<double> AvaliacaoRead(id_receitas, id_usuario) async {
   double avaliacao = 0;
   Map<String, dynamic> data = {

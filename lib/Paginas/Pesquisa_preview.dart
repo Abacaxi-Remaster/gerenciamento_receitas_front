@@ -15,6 +15,20 @@ class _SearchPreviewState extends State<SearchPreview> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    double getNota(idReceita, lista) {
+      double nota = 0;
+
+      for (var item in lista) {
+        if (item["id"] == idReceita) {
+          //print(item["nota"]);
+          String text = item['nota'];
+          nota = double.parse(text);
+          break;
+        }
+      }
+
+      return nota;
+    }
 
     return Center(
       child: Padding(
@@ -77,11 +91,13 @@ class _SearchPreviewState extends State<SearchPreview> {
 -> link: https://github.com/flutter/flutter/issues/126531 */
 
 //provavelmente funciona, mas é deselegante:
-                    final searchFuture = pesquisaComFiltro(
-                        controller.text, appState.filtroAvaliacao.toString());
                     return [
                       FutureBuilder(
-                        future: searchFuture,
+                        future: Future.wait([
+                          pesquisaComFiltro(controller.text,
+                              appState.filtroAvaliacao.toString()),
+                          allAval(),
+                        ]),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -89,7 +105,15 @@ class _SearchPreviewState extends State<SearchPreview> {
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else {
-                            List<Receita>? list = snapshot.data;
+                            final List<dynamic> data = snapshot.data!;
+                            List<Receita>? list = data[0];
+                            List<Map<String, dynamic>> notas = data[1];
+
+                            print(list);
+                            print('');
+                            print(notas);
+                            print('fim');
+
                             if (list != null) {
                               return ListView.builder(
                                 shrinkWrap: true,
@@ -98,6 +122,27 @@ class _SearchPreviewState extends State<SearchPreview> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return ListTile(
                                     title: Text(list[index].tituloReceitas),
+                                    subtitle: RatingBar(
+                                      ignoreGestures: true,
+                                      initialRating: getNota(
+                                          list[index].id, notas), //initRating,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: false,
+                                      itemCount: 5,
+                                      itemSize: 25,
+                                      ratingWidget: RatingWidget(
+                                        full: Icon(Icons.star),
+                                        half: Icon(Icons.star_half_outlined),
+                                        empty: Icon(Icons.star_border),
+                                      ),
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
+                                      onRatingUpdate: (rating) {
+                                        //print(rating);
+                                        avaliar(rating, appState.logged.id,
+                                            appState.receitaAtual.id);
+                                      },
+                                    ),
                                     trailing: IconButton(
                                       icon: Icon(Icons.menu),
                                       onPressed: () {
